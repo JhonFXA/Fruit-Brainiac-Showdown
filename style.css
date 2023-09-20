@@ -1,0 +1,29 @@
+.carta{
+    background: black;
+    height: 150px;
+    width: 100px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: 0.7s ease-out;
+}
+
+.verso{
+    background: yellowgreen;
+    backface-visibility: hidden;
+
+}
+
+.carta2{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.frente{
+    background: pink;
+    transform: rotateY(180deg);
+}
+
+.virarCarta{
+    transform: rotateY(180deg);
+}
