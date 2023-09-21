@@ -1,0 +1,68 @@
+.carta {
+    height: 100px;
+    width: 70px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: 0.7s ease-out;
+}
+
+.verso {
+    background: yellowgreen;
+    backface-visibility: hidden;
+
+}
+
+.face {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 5px;
+}
+
+.frente {
+    background: pink;
+    transform: rotateY(180deg);
+}
+
+.virarCarta {
+    transform: rotateY(180deg);
+}
+
+body {
+    background-color: rgb(221, 188, 158);
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+.jogador-1-grade {
+    border: solid brown;
+    display: flex;
+}
+
+.jogador-2-grade {
+    border: solid brown;
+}
+
+.grades {
+    width: 50%;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 50%;
+    gap: 10px;
+    border: solid white;
+    background-color: black;
+    padding: 3px;
+}
+
+.item {
+    color: #fff;
+    text-align: center;
+}
