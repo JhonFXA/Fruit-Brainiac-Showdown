@@ -36,12 +36,12 @@ body {
 }
 
 .jogador-1-grade {
-    border: solid brown;
+    border-right: solid brown;
     display: flex;
 }
 
 .jogador-2-grade {
-    border: solid brown;
+    border-left: solid brown;
 }
 
 .grades {
@@ -64,5 +64,45 @@ body {
 
 .item {
     color: #fff;
+    text-align: center;
+}
+
+#personagem_player1{
+    border: solid white;
+    background-color: #fff;
+    border-radius: 100%;
+}
+
+#personagem_player2{
+    border: solid white;
+    background-color: #fff;
+    border-radius: 100%;
+}
+
+.barraLateralEsquerda{
+    background-color: rgb(104, 94, 94);
+    height: 100%;
+    width: 100px;
+    position:absolute;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.barraLateralDireita{
+    background-color: rgb(104, 94, 94);
+    height: 100%;
+    width: 100px;
+    position:absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pontuacao{
+    color: #fff;
+    margin-top: 50px;
     text-align: center;
 }
