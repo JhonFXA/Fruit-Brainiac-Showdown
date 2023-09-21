@@ -56,16 +56,13 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: 50%;
+    max-width: 400px;
     gap: 10px;
     padding: 3px;
+    margin-left: 80px;
 
 }
 
-.item {
-    color: #fff;
-    text-align: center;
-}
 
 #icones_jogador {
     margin-top: 20px;
