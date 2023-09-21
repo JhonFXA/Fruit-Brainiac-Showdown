@@ -7,7 +7,7 @@
 }
 
 .verso {
-    background: yellowgreen;
+    background: rgb(0, 12, 65);;
     backface-visibility: hidden;
 
 }
@@ -20,7 +20,7 @@
 }
 
 .frente {
-    background: pink;
+    background: rgb(139, 4, 45);
     transform: rotateY(180deg);
 }
 
@@ -29,19 +29,19 @@
 }
 
 body {
-    background-color: rgb(221, 188, 158);
+    background-color: rgb(34, 167, 207);
     height: 100vh;
     display: flex;
     justify-content: space-around;
 }
 
 .jogador-1-grade {
-    border-right: solid brown;
+    border-right: solid rgb(0, 12, 65);
     display: flex;
 }
 
 .jogador-2-grade {
-    border-left: solid brown;
+    border-left: solid rgb(0, 12, 65);
 }
 
 .grades {
@@ -57,9 +57,8 @@ body {
     justify-content: space-around;
     width: 50%;
     gap: 10px;
-    border: solid white;
-    background-color: black;
     padding: 3px;
+ 
 }
 
 .item {
@@ -67,20 +66,16 @@ body {
     text-align: center;
 }
 
-#personagem_player1{
-    border: solid white;
-    background-color: #fff;
-    border-radius: 100%;
+#personagem_jogador1{
+  margin-top: 20px;
 }
 
-#personagem_player2{
-    border: solid white;
-    background-color: #fff;
-    border-radius: 100%;
+#personagem_jogador2{
+    margin-top: 20px;
 }
 
 .barraLateralEsquerda{
-    background-color: rgb(104, 94, 94);
+    background-color: rgb(0, 12, 65);
     height: 100%;
     width: 100px;
     position:absolute;
@@ -91,7 +86,7 @@ body {
 }
 
 .barraLateralDireita{
-    background-color: rgb(104, 94, 94);
+    background-color: rgb(0, 12, 65);
     height: 100%;
     width: 100px;
     position:absolute;
