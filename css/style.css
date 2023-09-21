@@ -7,9 +7,10 @@
 }
 
 .verso {
-    background: rgb(0, 12, 65);;
     backface-visibility: hidden;
-
+    background-image: url('../imagens/carta-verso.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .face {
@@ -58,7 +59,7 @@ body {
     width: 50%;
     gap: 10px;
     padding: 3px;
- 
+
 }
 
 .item {
@@ -66,37 +67,34 @@ body {
     text-align: center;
 }
 
-#personagem_jogador1{
-  margin-top: 20px;
-}
-
-#personagem_jogador2{
+#icones_jogador {
     margin-top: 20px;
+    height: 40px;
 }
 
-.barraLateralEsquerda{
+.barraLateralEsquerda {
     background-color: rgb(0, 12, 65);
     height: 100%;
     width: 100px;
-    position:absolute;
+    position: absolute;
     left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.barraLateralDireita{
+.barraLateralDireita {
     background-color: rgb(0, 12, 65);
     height: 100%;
     width: 100px;
-    position:absolute;
+    position: absolute;
     right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.pontuacao{
+.pontuacao {
     color: #fff;
     margin-top: 50px;
     text-align: center;
