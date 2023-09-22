@@ -1,48 +1,8 @@
-.carta {
-    height: 100px;
-    width: 70px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: 0.7s ease-out;
-}
-
-.verso {
-    backface-visibility: hidden;
-    background-image: url('../imagens/carta-verso.png');
-    background-size: cover;
-    background-position: center;
-}
-
-.face {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    border-radius: 5px;
-}
-
-.frente {
-    background: rgb(139, 4, 45);
-    transform: rotateY(180deg);
-}
-
-.virarCarta {
-    transform: rotateY(180deg);
-}
-
 body {
     background-color: rgb(34, 167, 207);
     height: 100vh;
     display: flex;
     justify-content: space-around;
-}
-
-.jogador-1-grade {
-    border-right: solid rgb(0, 12, 65);
-    display: flex;
-}
-
-.jogador-2-grade {
-    border-left: solid rgb(0, 12, 65);
 }
 
 .grades {
@@ -52,21 +12,9 @@ body {
     align-items: center;
 }
 
-.container {
+.jogador-1-grade {
+    border-right: solid rgb(0, 12, 65);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    max-width: 400px;
-    gap: 10px;
-    padding: 3px;
-    margin-left: 80px;
-
-}
-
-
-#icones_jogador {
-    margin-top: 20px;
-    height: 40px;
 }
 
 .barraLateralEsquerda {
@@ -80,6 +28,66 @@ body {
     align-items: center;
 }
 
+#icones_jogador {
+    margin-top: 20px;
+    height: 40px;
+}
+
+.pontuacao {
+    color: #fff;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 400px;
+    gap: 10px;
+    padding: 3px;
+    margin-left: 80px;
+    
+}
+
+.carta {
+    height: 100px;
+    width: 70px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: 0.7s ease-out;
+}
+
+.verso {
+    backface-visibility: hidden;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../imagens/carta-verso.png');
+    z-index: 1;
+}
+
+.face {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 5px;
+    border: solid;
+}
+
+.frente {
+    position: absolute;
+    background: #fff;
+    background-size: cover;
+    background-position: center;
+    background-size: 80px;
+    background-repeat: no-repeat;
+    transform: rotateY(180deg);
+}
+.jogador-2-grade {
+    border-left: solid rgb(0, 12, 65);
+}
+
+
 .barraLateralDireita {
     background-color: rgb(0, 12, 65);
     height: 100%;
@@ -91,8 +99,16 @@ body {
     align-items: center;
 }
 
-.pontuacao {
-    color: #fff;
-    margin-top: 50px;
-    text-align: center;
+
+.virarCarta {
+    transform: rotateY(180deg);
 }
+
+
+
+
+
+
+
+
+
