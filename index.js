@@ -45,12 +45,51 @@ carregarGrade()
 
 //A função 'virarCarta' adiciona um evento de click para cada elemento com a classe 'carta', sempre que houver um click ela irá receber uma classe que irá rotacionar ela
 const cartas = document.querySelectorAll(".carta")
+
+
 const virarCarta = (cartas,i = 0) => {
-    if(i<cartas.length){
-        cartas[i].addEventListener('click', ()=>{
-            cartas[i].classList.toggle('virarCarta')
-        })
-        return virarCarta(cartas, i+1)
+    const viradas = []
+    if(viradas.length<2){
+        if(i<cartas.length){
+            cartas[i].addEventListener('click', ()=>{
+                cartas[i].classList.toggle('virarCarta')
+                viradas.push(cartas[i])
+                console.log(viradas.length)
+            })
+            return virarCarta(cartas, i+1)
+        }
     }
+    
 }
 virarCarta(cartas)
+
+function comecarTempo(duracao,display){
+    
+    var tempo = duracao, segundos;
+
+    setInterval(() => {
+        
+        segundos = parseInt(tempo% 60, 10)
+     
+        segundos = segundos < 10 ? `0`+ segundos + `s`: segundos + `s`;
+        
+        display.textContent = segundos;
+
+        if(--tempo<0){
+            tempo = duracao;
+        }
+
+    
+   }, 1000);        
+}
+
+
+window.onload = function(){
+
+    var duracao = 10;
+    var display = document.querySelector(".tempo");
+
+    comecarTempo(duracao,display);
+}
+
+console.log(viradas)
