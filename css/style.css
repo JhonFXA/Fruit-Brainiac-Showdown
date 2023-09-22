@@ -14,7 +14,7 @@ body {
 
 .jogador-1-grade {
     display: flex;
-    border-right:solid black;
+    border-right: solid black;
 }
 
 .barraLateralEsquerda {
@@ -44,7 +44,7 @@ body {
     justify-content: space-around;
     max-width: 400px;
     gap: 10px;
-    padding: 3px; 
+    padding: 3px;
 }
 
 .carta {
@@ -80,9 +80,10 @@ body {
     background-repeat: no-repeat;
     transform: rotateY(180deg);
 }
+
 .jogador-2-grade {
     display: flex;
-    border-left:solid black;
+    border-left: solid black;
 }
 
 
@@ -108,4 +109,9 @@ body {
     align-items: center;
     font-size: 20px;
     font-weight: bold;
+}
+
+.cartas-iguais {
+    opacity: 40%;
+    transform: rotateY(180deg);
 }
