@@ -97,7 +97,7 @@ body {
 }
 
 
-.virarCarta {
+.virar-carta {
     transform: rotateY(180deg);
 }
 

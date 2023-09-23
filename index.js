@@ -1,5 +1,3 @@
-//A função 'criarCartas' serve para criar as cartas do jogo, como o próprio nome já diz. Dentro dela há a função 'criarElemento', que cria um elemento de acordo com a tag e a classe que for passada nos parâmetros. Depois de criar a carta, a frente e o verso são inseridos dentro dela e a carta é retornada.
-
 const frutas = [
   "côco",
   "cereja",
@@ -13,6 +11,7 @@ const frutas = [
   "pera",
 ]
 
+//A função 'criarCartas' serve para criar as cartas do jogo, como o próprio nome já diz. Dentro dela há a função 'criarElemento', que cria um elemento de acordo com a tag e a classe que for passada nos parâmetros. Depois de criar a carta, a frente e o verso são inseridos dentro dela e a carta é retornada.
 const criarCartas = (fruta) => {
   const criarElemento = (tag, classe) => {
     const elemento = document.createElement(tag)
@@ -51,61 +50,11 @@ const carregarGrade = () => {
 }
 carregarGrade()
 
-//A função 'virarCarta' adiciona um evento de click para cada elemento com a classe 'carta', sempre que houver um click ela irá receber uma classe que irá rotacionar ela
-
-const cartasViradas = []
 
 const cartas = document.querySelectorAll(".carta")
+const cartasViradas = []
 
-const virarCarta = (carta) => {
-  const contemClasse = carta.classList.contains("virarCarta")
-  
-  if (!contemClasse && cartasViradas.length < 2) {
-    carta.classList.add("virarCarta")
-    cartasViradas.push(carta)
-  }
-  if (cartasViradas.length === 2) {
-    const jogoPause = (cartas,i=0) => (ordem) => {
-      if(i<cartas.length){
-        cartas[i].style.pointerEvents = ordem
-        return jogoPause(cartas,i+1)(ordem)
-      }
-    }
-    jogoPause(cartas)('none')
-
-    const escolhas =[cartasViradas[0],cartasViradas[1]]
-    const frentes = [escolhas[0].querySelector('.frente'),escolhas[1].querySelector('.frente')]
-    const versos = [escolhas[0].querySelector('.verso'),escolhas[1].querySelector('.verso')]
-    const frutaUrl1 = getComputedStyle(frentes[0]).getPropertyValue('background-image')
-    const frutaUrl2 = getComputedStyle(frentes[1]).getPropertyValue('background-image')
-    cartasViradas.length = 0
-
-    setTimeout(()=>{
-      escolhas[0].classList.remove('virarCarta')
-      escolhas[1].classList.remove('virarCarta')
-
-      if(frutaUrl1===frutaUrl2){
-        const igualdades = document.querySelectorAll('.cartas-iguais')
-        if(igualdades.length+2 === 20 ){
-          window.alert('voa mlk')
-          window.location.reload()
-        }
-        escolhas[0].classList.add('cartas-iguais')
-        escolhas[1].classList.add('cartas-iguais')
-        versos[0].style.display = 'none'
-        versos[1].style.display = 'none'
-      } 
-
-      jogoPause(cartas)('all')
-    },700)
-  } else if (contemClasse) {
-    carta.classList.remove("virarCarta")
-    const index = cartasViradas.indexOf(carta)
-    cartasViradas.splice(index, 1)
-  }
-}
-
-
+//A função 'virarCartaAux' funciona como um 'forEach', que para cada carta, adiciona um evento de click que chama a função 'virarCarta'.
 const virarCartaAux = (cartas, i = 0) => {
   if (i < cartas.length) {
     cartas[i].addEventListener("click", () => {
@@ -115,6 +64,69 @@ const virarCartaAux = (cartas, i = 0) => {
   }
 }
 virarCartaAux(cartas)
+
+//A função 'virarCarta' é a que faz o jogo funcionar em cada grade de cartas, ela possui uma série de outras funções e condicionais que serão explicadas a seguir.
+const virarCarta = (carta) => {
+  const possuiClasse = (elemento, classe) => elemento.classList.contains(classe) //Checa se um elemento possui uma classe.
+  const adicionarClasse = (elemento, classe) => elemento.classList.add(classe) //Adiciona classe para o elemento.
+  const removerClasse = (elemento, classe) => elemento.classList.remove(classe) //Remove classe de um elemento.
+  const puxarElemento = (elemPai, elemFilho) => elemPai.querySelector(elemFilho) //Puxa algum elemento para ser utilizado.
+  const puxarUrl = (elemento) => getComputedStyle(elemento).getPropertyValue("background-image")//Guarda a url da imagem de um elemento
+  //A função 'pausarClick' foi implementada para que os jogadores não consigam clicar em várias cartas em pouco tempo, evitando possíveis trapaças. Além disso, ela chama a si mesmo recursivamente, alterando o evento de click para cada carta.
+  const pausarClick = (cartas, ordem, i = 0) => {
+    if (i < cartas.length) {
+      cartas[i].style.pointerEvents = ordem
+      return pausarClick(cartas, ordem, i + 1)
+    }
+  }
+  //Se a carta que entrar na função como parâmetro já tiver a classe 'cartas-iguais', significa que ela já teve seu par resolvido, portanto, ela não pode ser virada novamente.
+  if (possuiClasse(carta, "cartas-iguais")) return
+
+  //Se a carta ainda não foi virada, ou seja, não possui a classe 'virar-carta' e a quantidade de cartas viradas for menor que dois, ela receberá a classe e será adicionada na lista de cartas viradas.
+  else if (!possuiClasse(carta, "virar-carta") && cartasViradas.length < 2) {
+    adicionarClasse(carta, "virar-carta")
+    cartasViradas.push(carta)
+
+    //Caso já existam duas cartas viradas, temos que checar se as cartas escolhidas são iguais ou não.
+    if (cartasViradas.length === 2) {
+      const escolhas = [cartasViradas[0], cartasViradas[1]]//Aqui vão ficar as cartas que o jogador escolheu.
+      const frentes = [
+        puxarElemento(escolhas[0], ".frente"),
+        puxarElemento(escolhas[1], ".frente"),
+      ] //Aqui vão ficar as frentes das cartas que o jogador escolheu.
+      const versos = [
+        escolhas[0].querySelector(".verso"),
+        escolhas[1].querySelector(".verso"),
+      ] //Aqui vão ficar os versos das cartas que o jogador escolheu.
+      const urlFrutas = [puxarUrl(frentes[0]), puxarUrl(frentes[1])] //Essa lista vai guardar a url das imagens de cada frente.
+      cartasViradas.length = 0 //Após a escolha de duas cartas, o número de viradas tem que voltar à zero.
+      pausarClick(cartas, "none") //O clicks devem ser pausados na escolha de duas cartas.
+
+      // O 'setTimeout' define um atraso, tudo o que estiver dentro de seu escopo só será executado após 0.7 segundos. Está sendo utilizado para que dê tempo de o jogador ver as cartas que escolheu antes de serem viradas novamente.
+      setTimeout(() => {
+        //Ambas as cartas irão perder a classe de virada e serão escondidas novamente,...
+        removerClasse(escolhas[0], "virar-carta")
+        removerClasse(escolhas[1], "virar-carta")
+        //mas caso as frutas sejam iguais, elas receberão a classe de 'cartas-iguais', que as deixará transparentes e travadas.
+        if (urlFrutas[0] === urlFrutas[1]) {
+          escolhas[0].classList.add("cartas-iguais")
+          escolhas[1].classList.add("cartas-iguais")
+          versos[0].style.display = "none"
+          versos[1].style.display = "none"
+        }
+        const igualdades = document.querySelectorAll(".cartas-iguais") //Lista de pares que foram resolvidos.
+          //Se a quantidade de pares resolvidos condizer com a quantidade de cartas no jogo, então houve uma vitória.
+        if (igualdades.length === 20) {
+          window.alert("voa mlk")
+          window.location.reload()
+        }
+        pausarClick(cartas, "all")//Retorna o evento de click nas cartas.
+      }, 700)
+    }
+  }
+}
+
+
 
 function comecarTempo(duracao, display) {
   var tempo = duracao,
