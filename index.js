@@ -1,3 +1,6 @@
+const pontos = document.getElementById('pontos')
+ pontos.innerHTML = 0
+
 const frutas = [
   "côco",
   "cereja",
@@ -10,6 +13,8 @@ const frutas = [
   "pepino",
   "pera",
 ]
+
+
 
 //A função 'criarCartas' serve para criar as cartas do jogo, como o próprio nome já diz. Dentro dela há a função 'criarElemento', que cria um elemento de acordo com a tag e a classe que for passada nos parâmetros. Depois de criar a carta, a frente e o verso são inseridos dentro dela e a carta é retornada.
 const criarCartas = (fruta) => {
@@ -31,10 +36,10 @@ const criarCartas = (fruta) => {
 }
 
 //A função 'carregarGrade' serve para criar a grade de cartas de acordo com a quantidade de frutas definidas para o jogo. Primeiramente, é criada uma lista com 10 frutas e logo abaixo há uma função recursiva para duplicar os elementos da lista, pois necessitamos dos pares. A função 'carregarGradeAux' percorre os elementos da lista recursivamente, criando uma carta para cada elemento.
-const carregarGrade = () => {
+const carregarGrade1 = () => {
   const duplica = [...frutas, ...frutas]
 
-  const container = document.querySelector(".container")
+  const container = document.querySelector(".container1")
 
   const carregarGradeAux = ([a, ...b]) => {
     if (b.length == 0) {
@@ -48,7 +53,28 @@ const carregarGrade = () => {
   }
   carregarGradeAux(duplica.sort(() => Math.random() - 0.5))
 }
-carregarGrade()
+carregarGrade1()
+
+
+const carregarGrade2 = () => {
+  const duplica = [...frutas, ...frutas]
+
+  const container = document.querySelector(".container2")
+
+  const carregarGradeAux = ([a, ...b]) => {
+    if (b.length == 0) {
+      const carta = criarCartas(a)
+      return container.appendChild(carta)
+    } else {
+      const carta = criarCartas(a)
+      container.appendChild(carta)
+      return carregarGradeAux(b)
+    }
+  }
+  carregarGradeAux(duplica.sort(() => Math.random() - 0.5))
+}
+carregarGrade2()
+
 
 
 const cartas = document.querySelectorAll(".carta")
@@ -108,11 +134,14 @@ const virarCarta = (carta) => {
         removerClasse(escolhas[0], "virar-carta")
         removerClasse(escolhas[1], "virar-carta")
         //mas caso as frutas sejam iguais, elas receberão a classe de 'cartas-iguais', que as deixará transparentes e travadas.
+        
         if (urlFrutas[0] === urlFrutas[1]) {
           escolhas[0].classList.add("cartas-iguais")
           escolhas[1].classList.add("cartas-iguais")
           versos[0].style.display = "none"
           versos[1].style.display = "none"
+          pontos.innerHTML ++
+
         }
         const igualdades = document.querySelectorAll(".cartas-iguais") //Lista de pares que foram resolvidos.
           //Se a quantidade de pares resolvidos condizer com a quantidade de cartas no jogo, então houve uma vitória.
@@ -127,22 +156,17 @@ const virarCarta = (carta) => {
 }
 
 
+function contagem(numero) {
+  const contador = document.getElementById('tempo');
 
-function comecarTempo(duracao, display) {
-  var tempo = duracao,
-    segundos
-  setInterval(() => {
-    segundos = parseInt(tempo % 60, 10)
-    segundos = segundos < 10 ? `0` + segundos + `s` : segundos + `s`
-    display.textContent = segundos
-    if (--tempo < 0) {
-      tempo = duracao
-    }
-  }, 1000)
+  if (numero < 0) {
+      contador.innerHTML = 'Tempo esgotado!';
+  } else {
+      contador.innerHTML = numero;
+      setTimeout(() => {
+          contagem(numero - 1);
+      }, 1000); 
+  }
 }
 
-window.onload = function () {
-  var duracao = 10
-  var display = document.querySelector(".tempo")
-  comecarTempo(duracao, display)
-}
+contagem(5)
