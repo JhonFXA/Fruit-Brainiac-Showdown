@@ -71,7 +71,12 @@ body {
     text-align: center;
 }
 
-.pontos {
+.pontosP1 {
+    color: #fff;
+    text-align: center;
+}
+
+.pontosP2 {
     color: #fff;
     text-align: center;
 }
@@ -109,7 +114,6 @@ body {
     background-position: center;
     background-image: url('../imagens/carta-verso.png');
     z-index: 1;
-        
 }
 
 .face {

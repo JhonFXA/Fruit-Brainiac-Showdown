@@ -1,4 +1,8 @@
-const pontos = document.getElementById("pontos")
+const pontosP1 = document.getElementById("pontosP1")
+const pontosP2 = document.getElementById("pontosP2")
+const containerUm = document.querySelector(".container1")
+const containerDois = document.querySelector(".container2")
+const cartasViradas = []
 
 const frutas = [
   "côco",
@@ -11,6 +15,7 @@ const frutas = [
   "morango",
   "pepino",
   "pera",
+
 ]
 
 //A função 'criarCartas' serve para criar as cartas do jogo, como o próprio nome já diz. Dentro dela há a função 'criarElemento', que cria um elemento de acordo com a tag e a classe que for passada nos parâmetros. Depois de criar a carta, a frente e o verso são inseridos dentro dela e a carta é retornada.
@@ -32,6 +37,8 @@ const criarCartas = (fruta) => {
   return carta
 }
 
+
+
 const carregarGrade = (container) => {
   const duplica = [...frutas, ...frutas]
   const carregarGradeAux = ([a, ...b]) => {
@@ -45,13 +52,24 @@ const carregarGrade = (container) => {
   }
   carregarGradeAux(duplica.sort(() => Math.random() - 0.2))
 }
-const containerUm = document.querySelector(".container1")
-const containerDois = document.querySelector(".container2")
 carregarGrade(containerUm)
 carregarGrade(containerDois)
 
+
 const cartas = document.querySelectorAll(".carta")
-const cartasViradas = []
+const cartas1 = containerUm.querySelectorAll(".carta")
+const cartas2 = containerDois.querySelectorAll(".carta")
+
+
+const primeiraJogada = (cartas, i = 0) => {
+  if (i < cartas.length) {
+    cartas[i].classList.add('pode-virar')
+    return primeiraJogada(cartas, i + 1)
+  }
+}
+primeiraJogada(cartas1)
+
+
 
 const virarCartaAux = (cartas, i = 0) => {
   if (i < cartas.length) {
@@ -63,33 +81,36 @@ const virarCartaAux = (cartas, i = 0) => {
 }
 virarCartaAux(cartas)
 
-const cartas1 = containerUm.querySelectorAll(".carta")
-const cartas2 = containerDois.querySelectorAll(".carta")
-cartas1.forEach((carta) => {
-  carta.classList.add("pode-virar")
-})
 
-function contagemP1(numero) {
+
+const adicionarClassePodeVirar = (cartas, i = 0) => {
+  if (i < cartas.length) {
+    cartas[i].classList.add('pode-virar')
+    return adicionarClassePodeVirar(cartas,  i + 1)
+  }
+}
+const removerClassePodeVirar = (cartas, i = 0) => {
+  if (i < cartas.length) {
+    cartas[i].classList.remove('pode-virar')
+    return removerClassePodeVirar(cartas, i + 1)
+  }
+}
+
+
+const contagemP1 = (numero) => {
+
   const contador = document.getElementById("tempoP1")
   if (numero === 0 && cartasViradas.length < 2) {
-    cartas1.forEach((carta) => {
-      carta.classList.remove("pode-virar")
-    })
-    cartas2.forEach((carta) => {
-      carta.classList.add("pode-virar")
-    })
+    adicionarClassePodeVirar(cartas2)
     contagemP2(10)
     contador.innerHTML = "0"
+    removerClassePodeVirar(cartas1)
     cartasViradas[0].classList.remove('virar-carta')
     cartasViradas.length = 0
   }
  else if (numero === 0){
-  cartas1.forEach((carta) => {
-    carta.classList.remove("pode-virar")
-  })
-  cartas2.forEach((carta) => {
-    carta.classList.add("pode-virar")
-  })
+  removerClassePodeVirar(cartas1)
+  adicionarClassePodeVirar(cartas2)
   contagemP2(10)
   contador.innerHTML = "0"
   
@@ -102,26 +123,19 @@ function contagemP1(numero) {
 }
 function contagemP2(numero) {
   const contador = document.getElementById("tempoP2")
+  
 
   if (numero === 0 && cartasViradas.length < 2) {
-    cartas2.forEach((carta) => {
-      carta.classList.remove("pode-virar")
-    })
-    cartas1.forEach((carta) => {
-      carta.classList.add("pode-virar")
-    })
+    removerClassePodeVirar(cartas2)
+    adicionarClassePodeVirar(cartas1)
     contagemP1(10)
     contador.innerHTML = "0"
     cartasViradas[0].classList.remove('virar-carta')
     cartasViradas.length = 0
   }
   else if (numero === 0){
-    cartas2.forEach((carta) => {
-      carta.classList.remove("pode-virar")
-    })
-    cartas1.forEach((carta) => {
-      carta.classList.add("pode-virar")
-    })
+    removerClassePodeVirar(cartas2)
+    adicionarClassePodeVirar(cartas1)
     contagemP2(10)
     contador.innerHTML = "0"
    } else {
@@ -175,19 +189,29 @@ const virarCarta = (carta) => {
           removerClasse(escolhas[0], "virar-carta")
           removerClasse(escolhas[1], "virar-carta")
 
+          
           if (urlFrutas[0] === urlFrutas[1]) {
             escolhas[0].classList.add("cartas-iguais")
             escolhas[1].classList.add("cartas-iguais")
             versos[0].style.display = "none"
             versos[1].style.display = "none"
-            pontos.innerHTML++
+            const igualdadesP1 = containerUm.querySelectorAll('.cartas-iguais')
+            pontosP1.innerHTML = igualdadesP1.length/2
+            const igualdadesP2 = containerDois.querySelectorAll('.cartas-iguais')
+              pontosP2.innerHTML = igualdadesP2.length/2
+            if (igualdadesP1.length ==20) {
+              window.alert("Jogador 1 venceu")
+              window.location.reload()
+              
+            }
+            if (igualdadesP2.length == 20) {
+              
+              window.alert("Jogador 2 venceu")
+              window.location.reload()
+            }
+            
           }
-          const igualdades = document.querySelectorAll(".cartas-iguais")
-
-          if (igualdades.length === 20) {
-            window.alert("voa mlk")
-            window.location.reload()
-          }
+          
           pausarClick(cartas, "all")
         }, 700)
       }
