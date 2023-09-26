@@ -15,6 +15,7 @@ const frutas = [
   "morango",
   "pepino",
   "pera",
+
 ]
 
 //A função 'criarCartas' serve para criar as cartas do jogo, como o próprio nome já diz. Dentro dela há a função 'criarElemento', que cria um elemento de acordo com a tag e a classe que for passada nos parâmetros. Depois de criar a carta, a frente e o verso são inseridos dentro dela e a carta é retornada.
@@ -70,15 +71,7 @@ primeiraJogada(cartas1)
 
 
 
-const virarCartaAux = (cartas, i = 0) => {
-  if (i < cartas.length) {
-    cartas[i].addEventListener("click", () => {
-      virarCarta(cartas[i])
-    })
-    return virarCartaAux(cartas, i + 1)
-  }
-}
-virarCartaAux(cartas)
+
 
 
 
@@ -97,22 +90,23 @@ const removerClassePodeVirar = (cartas, i = 0) => {
 
 
 const contagemP1 = (numero) => {
-
   const contador = document.getElementById("tempoP1")
-  if (numero === 0 && cartasViradas.length < 2) {
-    adicionarClassePodeVirar(cartas2)
-    contagemP2(10)
-    contador.innerHTML = "0"
-    removerClassePodeVirar(cartas1)
-    cartasViradas[0].classList.remove('virar-carta')
-    cartasViradas.length = 0
-  }
- else if (numero === 0){
-  removerClassePodeVirar(cartas1)
-  adicionarClassePodeVirar(cartas2)
-  contagemP2(10)
-  contador.innerHTML = "0"
   
+  if (numero === 0){
+    containerDois.classList.add('elemento-piscante')
+    containerUm.style.opacity = 0.4
+    containerDois.style.opacity = 1
+    setTimeout(()=>{
+      containerDois.classList.remove('elemento-piscante')
+      contagemP2(10)
+      adicionarClassePodeVirar(cartas2)
+    },2000)
+    removerClassePodeVirar(cartas1)
+    contador.innerHTML = "0"
+    if (cartasViradas.length < 2) {
+      cartasViradas[0].classList.remove('virar-carta')
+      cartasViradas.length = 0
+    }
  } else {
     contador.innerHTML = numero
     setTimeout(() => {
@@ -120,24 +114,26 @@ const contagemP1 = (numero) => {
     }, 1000)
   }
 }
-function contagemP2(numero) {
+const contagemP2 = (numero) => {
   const contador = document.getElementById("tempoP2")
   
 
-  if (numero === 0 && cartasViradas.length < 2) {
+  if (numero === 0){
+    containerUm.classList.add('elemento-piscante')
+    containerUm.style.opacity = 1
+    containerDois.style.opacity = 0.4
+    setTimeout(()=>{
+      contagemP1(10)
+      adicionarClassePodeVirar(cartas1)
+      containerUm.classList.remove('elemento-piscante')
+    },2000)
     removerClassePodeVirar(cartas2)
-    adicionarClassePodeVirar(cartas1)
-    contagemP1(10)
     contador.innerHTML = "0"
-    cartasViradas[0].classList.remove('virar-carta')
-    cartasViradas.length = 0
-  }
-  else if (numero === 0){
-    removerClassePodeVirar(cartas2)
-    adicionarClassePodeVirar(cartas1)
-    contagemP2(10)
-    contador.innerHTML = "0"
-   } else {
+    if (cartasViradas.length < 2) {
+      cartasViradas[0].classList.remove('virar-carta')
+      cartasViradas.length = 0
+    }
+ } else {
     contador.innerHTML = numero
     setTimeout(() => {
       contagemP2(numero - 1)
@@ -147,6 +143,15 @@ function contagemP2(numero) {
 
 contagemP1(10)
 
+const virarCartaAux = (cartas, i = 0) => {
+  if (i < cartas.length) {
+    cartas[i].addEventListener("click", () => {
+      virarCarta(cartas[i])
+    })
+    return virarCartaAux(cartas, i + 1)
+  }
+}
+virarCartaAux(cartas)
 const virarCarta = (carta) => {
   if (carta.classList.contains("pode-virar")) {
     const possuiClasse = (elemento, classe) =>
@@ -198,7 +203,7 @@ const virarCarta = (carta) => {
             pontosP1.innerHTML = igualdadesP1.length/2
             const igualdadesP2 = containerDois.querySelectorAll('.cartas-iguais')
               pontosP2.innerHTML = igualdadesP2.length/2
-            if (igualdadesP1.length ==20) {
+            if (igualdadesP1.length == 20) {
               window.alert("Jogador 1 venceu")
               window.location.reload()
               
