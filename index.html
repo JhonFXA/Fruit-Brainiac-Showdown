@@ -1,93 +1,103 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>projeto pf</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/reset.css">
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruit Brainiac Showdown</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/reset.css" />
+  </head>
+  <body>
+    <!-- ======================================================= JOGADOR 1 ================================================================= -->
 
-</head>
-<body>
-    <div class="barra-lateral">
-        
-        <img src="imagens/Jogador1.png" id="icones_jogador">
-        
-        <p class="pontuacao">Pontos</p> 
-        <div class="box-pontos">
-             <div class="pontosP1"id="pontosP1">0</div>
-        </div>
+    <div class="barra-lateral-P1">
+      <img src="imagens/Jogador1.png" class="icones_jogador" />
+      <p class="pontosTxt">Pontos</p>
+      <div class="box-pontos" id="pontosP1">0</div>
 
-        <div class="box-PowerUp-P1">
-            <div class="up-embaralhar">
-
-            </div>
-            <div class="up-virar-cartas">
-
-            </div>
-            <div class="up-tempo">
-                <button></button>
-            </div>
-            <div class="up-rodada">
-
-            </div>
-        </div>
+      <ul class="box-habilidades">
+        <li>
+          <button
+            class="botao"
+            id="up-rodadaP1"
+            onclick="repetirRodadaP1()"
+            aria-label="Repetir rodada"
+          >
+            <img
+              width="35px"
+              src="imagens/reverse-vermelho.png"
+              alt="ícone de reverse-vermelho"
+            />
+          </button>
+        </li>
+        <li>
+          <button class="botao" id="up-embaralhar"></button>
+        </li>
+        <li>
+          <button class="botao" id="up-virar-cartas"></button>
+        </li>
+        <li>
+          <button aria-label="" class="botao" id="up-tempo">
+            <img
+              width="35px"
+              src="imagens/ampulheta.png"
+              alt="ícone de ampulheta"
+            />
+          </button>
+        </li>
+      </ul>
     </div>
+
     <div class="jogador-1-grade grades">
-        <div class="box-tempo">
-            <div id="tempoP1">00</div>
-        </div>
-                <div class="container1">
-                </div>
+      <div class="box-tempo" id="tempoP1">0</div>
+      <div class="container1"></div>
     </div>
-    
 
-
-
-
+    <!-- ======================================================= JOGADOR 2 ================================================================= -->
 
     <div class="jogador-2-grade grades">
-        <div class="box-tempo">
-            <div id="tempoP2">0</div>
-        </div>
-        <div class="container2">
-        </div>
-
+      <div class="box-tempo" id="tempoP2">0</div>
+      <div class="container2"></div>
     </div>
-    <div class="barra-lateral">
-        <img src="imagens/Jogador2.png" id="icones_jogador">
 
-        <p class="pontuacao">Pontos</p> 
-        <div class="box-pontos">
-            <div class="pontosP2"id="pontosP2">0</div>
-        </div>
-        <div class="box-PowerUp-P2">
-            <div class="up-embaralhar">
+    <div class="barra-lateral-P2">
+      <img src="imagens/Jogador2.png" class="icones_jogador" />
+      <p class="pontosTxt">Pontos</p>
+      <div class="box-pontos" id="pontosP2">0</div>
+      <ul class="box-habilidades">
+        <li>
+          <button
+            class="botao"
+            id="up-rodadaP2"
+            onclick="repetirRodadaP2()"
+            aria-label="Repetir rodada Jogador 2"
+          >
+            <img
+              width="35px"
+              src="imagens/reverse-azul.png"
+              alt="ícone de reverse-azul"
+            />
+          </button>
+        </li>
+        <li>
+          <button class="botao" id="up-embaralhar"></button>
+        </li>
+        <li>
+          <button class="botao" id="up-virar-cartas"></button>
+        </li>
+        <li>
+          <button aria-label="" class="botao" id="up-tempo">
+            <img
+              width="35px"
+              src="imagens/ampulheta.png"
+              alt="ícone de ampulheta"
+            />
+          </button>
+        </li>
+      </ul>
+    </div>
 
-            </div>
-            <div class="up-virar-cartas">
-
-            </div>
-            <div class="up-tempo">
-
-            </div>
-            <div class="up-rodada">
-
-            </div>
-        </div>
-    
-    
-    <script src="index.js">
-    </script>
-</body>
+    <script src="index.js"></script>
+  </body>
 </html>
-<!-- seria o jogo da memoria, porem melhorado.
-seria multijogador, com 2 players e cada um teria direito a poderes
-1º embaralhar o jogo do oponente]
-2º ver seu jogo bem rapido(virar as cartas)
-3º diminuir o tempo do oponente
-4º pular vez do oponente (jogar 2 vezes)
-5º sistema de vidas
---> 
