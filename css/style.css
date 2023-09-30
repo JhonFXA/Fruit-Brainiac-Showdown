@@ -65,11 +65,13 @@ body {
 
 .barra-lateral-P1 .box-habilidades {
     box-shadow: 0 10px 10px red, 0 -10px 10px red;
+    
 
 }
 
 .barra-lateral-P2 .box-habilidades {
     box-shadow: 0 10px 10px blue, 0 -10px 10px blue;
+    
 }
 
 .box-habilidades {
@@ -90,6 +92,8 @@ body {
     width: 60px;
     height: 60px;
     transition: ease 0.2s;
+    opacity: 50%;
+    pointer-events: none;
 }
 
 .botao:hover {
@@ -110,12 +114,14 @@ body {
     background-image: radial-gradient(rgb(255, 172, 172), red);
     border: 2px solid white;
     box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red;
+    opacity: 100%
 }
 
 .barra-lateral-P2 .box-habilidades .ativado {
     background-image: radial-gradient(rgb(172, 225, 255), blue);
     border: 2px solid white;
     box-shadow: 0 0 10px blue, 0 0 20px blue, 0 0 30px blue, 0 0 40px blue;
+    opacity: 100%
 }
 
 .grades {
@@ -190,6 +196,12 @@ body {
     background-position: center;
     background-image: url('../imagens/carta-verso.png');
     z-index: 1;
+    transition: 0.2s;
+    opacity: 50%;
+}
+
+.verso:hover {
+    border-color: #fff;
 }
 
 .face {
@@ -199,6 +211,7 @@ body {
     border-radius: 5px;
     border: solid;
 }
+
 
 .frente {
     position: absolute;
@@ -225,6 +238,20 @@ body {
     animation: piscar 0.5s infinite;
 }
 
+.botao-piscante-P1 {
+    border: solid #fff;
+    animation: habilidade-prontaP1 2s infinite;
+    opacity: 100%;
+    pointer-events: auto;
+}
+
+.botao-piscante-P2 {
+    border: solid #fff;
+    animation: habilidade-prontaP2 2s infinite;
+    opacity: 100%;
+    pointer-events: auto;
+}
+
 @keyframes piscar {
     0% {
         opacity: 1;
@@ -237,4 +264,41 @@ body {
     100% {
         opacity: 1;
     }
+}
+
+@keyframes habilidade-prontaP1 {
+    0% {
+        box-shadow: 0 0 0px #fff, 0 0px #fff, 0 0 red, 0 0 red;
+    }
+    50% {
+        box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px red, 0 0 40px red;
+    }
+
+    100% {
+        box-shadow: 0 0 0px #fff, 0 0px #fff, 0 0 red, 0 0 red;
+    }
+}
+
+
+@keyframes habilidade-prontaP2 {
+    0% {
+        box-shadow: 0 0 0px white, 0 0px white, 0 0 blue, 0 0 blue;
+    }
+    50% {
+        box-shadow: 0 0 10px white, 0 0 20px blue, 0 0 30px blue, 0 0 40px blue;
+    }
+
+    100% {
+        box-shadow: 0 0 0px white, 0 0px white, 0 0 blue, 0 0 blue;
+    }
+}
+
+.mostrarCartasP1{
+    transform: rotatey(180deg);
+    
+}
+
+.mostrarCartasP2{
+    transform: rotatey(180deg);
+   
 }
