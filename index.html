@@ -14,41 +14,42 @@
       <img src="imagens/Jogador1.png" class="icones_jogador" />
       <p class="pontosTxt">Pontos</p>
       <div class="box-pontos" id="pontosP1">0</div>
-
       <ul class="box-habilidades">
         <li>
-          <button
-            class="botao" 
-            id="up-rodadaP1"
-            onclick="repetirRodadaP1()"
-            aria-label="Repetir rodada"
-          >
-            <img
-              width="35px"
-              src="imagens/reverse-vermelho.png"
-              alt="ícone de reverse-vermelho"
-            />
+          <button class="botao" onclick="acelerarTempoInimigoP1()">
+            <img width="45px" src="imagens/ampulheta.png" alt="ampulheta">
           </button>
+          <div  class="descricao">
+            <p>Acelerar Tempo Rival</p>
+            <p>-<span>2</span> Pontos</p>
+          </div>
         </li>
         <li>
-          <button class="botao" onclick="botao2()" id="up-embaralhar"></button>
-        </li>
-        <li>
-          <button 
-          class="botao" 
-          id="up-virar-cartasP1"
-          onclick="botao3()">
-            <img width="45px" src="" alt="">
-        </button>
-        </li>
-        <li>
-          <button aria-label="" onclick="botao4()" class="botao" id="up-tempo">
-            <img
-              width="35px"
-              src="imagens/ampulheta.png"
-              alt="ícone de ampulheta"
-            />
+          <button class="botao" onclick="virarCartasP1()">
+            <img width="45px" src="https://static.thenounproject.com/png/2829366-200.png" alt="seta de giro">
           </button>
+          <div  class="descricao">
+            <p>Virar Cartas</p>
+            <p>-<span>3</span> Pontos</p>
+          </div>
+        </li>
+        <li>
+          <button class="botao" onclick="repetirRodadaP1()">
+            <img width="35px" src="imagens/reverse-vermelho.png" alt="ícone de reverse-vermelho"/>
+          </button>
+          <div  class="descricao">
+            <p>Repetir Rodada</p>
+            <p>-<span>4</span> Pontos</p>
+          </div>
+        </li>
+        <li>
+          <button class="botao" onclick="embaralharCartasOponenteP1()">
+            <img width="45px" src="imagens/virarcartas.png" alt="cartas virando">
+          </button>
+          <div  class="descricao">
+            <p>Embaralhar Cartas Inimigas</p>
+            <p>-<span>5</span> Pontos</p>
+          </div>
         </li>
       </ul>
     </div>
@@ -71,39 +72,40 @@
       <div class="box-pontos" id="pontosP2">0</div>
       <ul class="box-habilidades">
         <li>
-          <button
-            class="botao"
-            id="up-rodadaP2"
-            onclick="repetirRodadaP2()"
-            aria-label="Repetir rodada Jogador 2"
-          >
-            <img
-              width="35px"
-              src="imagens/reverse-azul.png"
-              alt="ícone de reverse-azul"
-            />
+          <button class="botao" onclick="acelerarTempoInimigoP2()">
+            <img width="45px" src="imagens/ampulheta.png" alt="ampulheta">
           </button>
+          <div class="descricao">
+            <p>Acelerar Tempo Rival</p>
+            <p>-<span>2</span> Pontos</p>
+          </div>
         </li>
         <li>
-          <button class="botao" onclick="botao2P2()" id="up-embaralhar"></button>
+          <button class="botao" onclick="virarCartasP2()">
+            <img width="45px" src="https://static.thenounproject.com/png/2829366-200.png" alt="seta de giro">
+          </button>
+          <div class="descricao">
+            <p>Virar Cartas</p>
+            <p>-<span>3</span> Pontos</p>
+          </div>
         </li>
         <li>
-          <button
-          class="botao"
-          id="up-virar-cartasP2"
-          onclick="botao3P2()">
-            <img width="45px" src="" alt="">
-            
+          <button class="botao" onclick="repetirRodadaP2()">
+            <img width="35px" src="imagens/reverse-azul.png" alt="ícone de reverse-azul"/>
           </button>
+          <div  class="descricao">
+            <p>Repetir Rodada</p>
+            <p>-<span>4</span> Pontos</p>
+          </div>
         </li>
         <li>
-          <button aria-label="" onclick="botao4P2()" class="botao" id="up-tempo">
-            <img
-              width="35px"
-              src="imagens/ampulheta.png"
-              alt="ícone de ampulheta"
-            />
+          <button onclick="embaralharOponenteP2()" class="botao">
+            <img width="45px" src="imagens/virarcartas.png" alt="cartas virando">
           </button>
+          <div  class="descricao">
+            <p>Embaralhar Cartas Inimigas</p>
+            <p>-<span>5</span> Pontos</p>
+          </div>
         </li>
       </ul>
     </div>

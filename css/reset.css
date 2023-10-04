@@ -5,3 +5,7 @@
     border: none;
     list-style: none;
 }
+
+img {
+    user-select: none;
+}
