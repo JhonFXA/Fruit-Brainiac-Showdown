@@ -1,22 +1,24 @@
-const containerUm = document.querySelector(".container1")
-const containerDois = document.querySelector(".container2")
-const pontosP1 = document.getElementById('pontosP1')
-const pontosP2 = document.getElementById('pontosP2')
-const boxHabilidades = document.querySelectorAll(".box-habilidades")
-const botoesP1 = boxHabilidades[0].querySelectorAll(".botao")
-const botoesP2 = boxHabilidades[1].querySelectorAll(".botao")
-const tempoP1 = document.getElementById('tempoP1')
-const tempoP2 = document.getElementById('tempoP2')
-const cartasViradas = []
-const frutas = ["côco","cereja","pêssego","maçã","melancia","banana","limão","morango","pepino","pera"]
-pontosP1.innerHTML = 10
-pontosP2.innerHTML = 10
+const containerUm = document.querySelector(".container1") //Elemento da primeira grade de cartas
+const containerDois = document.querySelector(".container2") //Elemento da segunda grade de cartas
+const pontosP1 = document.getElementById('pontosP1') //Elemento da pontuação do jogador 1
+const pontosP2 = document.getElementById('pontosP2') //ELemento da pontuação do jogador 2
+const boxHabilidades = document.querySelectorAll(".box-habilidades") //Caixas de habilidades dos dois jogadores
+const botoesP1 = boxHabilidades[0].querySelectorAll(".botao") //Botões de habilidade do jogador 1
+const botoesP2 = boxHabilidades[1].querySelectorAll(".botao") //Botões de habilidade do jogador 2
+const tempoP1 = document.getElementById('tempoP1') //Elemento do tempo do jogador 1
+const tempoP2 = document.getElementById('tempoP2') //Elemento do tempo do jogador 2
+const cartasViradas = [] //Lista vazia, onde serão armazenadas as cartas escolhidas pelo jogador
+
+//Lista de frutas presentes nas cartas do jogo
+const frutas = ["côco","cereja","pêssego","maçã","melancia","banana","limão","morango","abacate","pera", "uva", "abacaxi"]
 
 
-const descricoesP1 = boxHabilidades[0].querySelectorAll('.descricao')
-const descricoesP2 = boxHabilidades[1].querySelectorAll('.descricao')
 
+
+//A função 'eventoDescricao' foi criada para adicionar um evento de mouseover para cada botão do jogo. Quando o mouse for colocado em cima do botão, a descrição desse botão vai receber uma classe que o deixará visível.
 const eventoDescricao = ([a,...b], jogador, i=0) => {
+  const descricoesP1 = boxHabilidades[0].querySelectorAll('.descricao')
+  const descricoesP2 = boxHabilidades[1].querySelectorAll('.descricao')
   if(a){
     a.addEventListener('mouseover',()=>{
       jogador === 1? descricoesP1[i].classList.add('visivel') : descricoesP2[i].classList.add('visivel')
@@ -32,27 +34,29 @@ eventoDescricao(botoesP2,2)
 
 //A função 'criarCartas' serve para criar as cartas do jogo, como o próprio nome já diz. Dentro dela há a função 'criarElemento', que cria um elemento de acordo com a tag e a classe que for passada nos parâmetros. Depois de criar a carta, a frente e o verso são inseridos dentro dela e a carta é retornada.
 const criarCartas = (fruta) => {
-const criarElemento = (tag, classe) => {
-  const elemento = document.createElement(tag)
-  elemento.className = classe
-  return elemento
+  const criarElemento = (tag, classe) => {
+    const elemento = document.createElement(tag)
+    elemento.className = classe
+    return elemento
+  }
+  const carta = criarElemento("div", "carta")
+  const frente = criarElemento("div", "frente face")
+  const verso = criarElemento("div", "verso face")
+
+  frente.style.backgroundImage = `url('./imagens/${fruta}.png')`
+  frente.style.backgroundPosition = "center"
+  carta.appendChild(frente)
+  carta.appendChild(verso)
+
+  return carta
 }
-const carta = criarElemento("div", "carta")
-const frente = criarElemento("div", "frente face")
-const verso = criarElemento("div", "verso face")
 
-frente.style.backgroundImage = `url('./imagens/${fruta}.png')`
-frente.style.backgroundPosition = "center"
-carta.appendChild(frente)
-carta.appendChild(verso)
-
-return carta
-}
-
+//A função 'carregarGrade' é responsável por criar a grade de cartas para os jogadores
 const carregarGrade = (container) => {
-  const duplica = [...frutas, ...frutas]
+  const duplica = [...frutas, ...frutas] //Lista com os pares de frutas
+  //A função 'carregarGradeAux' recebe a lista com os pares de frutas randomizados,cria uma carta para cada item da lista e às coloca dentro do container específicado.
   const carregarGradeAux = ([a, ...b]) => {
-  const carta = criarCartas(a)
+    const carta = criarCartas(a)
     if (b.length == 0) {
       return container.appendChild(carta)
     } else {
@@ -65,9 +69,9 @@ const carregarGrade = (container) => {
 carregarGrade(containerUm)
 carregarGrade(containerDois)
 
-const cartas = document.querySelectorAll(".carta")
-const cartas1 = containerUm.querySelectorAll(".carta")
-const cartas2 = containerDois.querySelectorAll(".carta")
+const cartas = document.querySelectorAll(".carta") //Todas as cartas do jogo
+const cartas1 = containerUm.querySelectorAll(".carta") //Todas as cartas do jogador 1
+const cartas2 = containerDois.querySelectorAll(".carta") //Todas as cartas do jogador 2
 
 const primeiraJogada = (cartas, i = 0) => {
   if (i < cartas.length) {
@@ -120,7 +124,7 @@ const verificarPontos = (jogador) => {
       if(pontosP1.innerHTML > 3 && !possuiClasse(botoesP1[2],"ativado")){
         adicionarClasse(botoesP1[2],"botao-piscante-P1")
       }
-      if(pontosP1.innerHTML > 4 && !possuiClasse(botoesP1[3],"ativado")){
+      if(pontosP1.innerHTML > 3 && !possuiClasse(botoesP1[3],"ativado")){
         adicionarClasse(botoesP1[3],"botao-piscante-P1")
       }
     }
@@ -136,7 +140,7 @@ const verificarPontos = (jogador) => {
       if(pontosP2.innerHTML > 3 && !possuiClasse(botoesP2[2],"ativado")){
         adicionarClasse(botoesP2[2],"botao-piscante-P2")
       }
-      if(pontosP2.innerHTML > 4 && !possuiClasse(botoesP2[3],"ativado")){
+      if(pontosP2.innerHTML > 3 && !possuiClasse(botoesP2[3],"ativado")){
         adicionarClasse(botoesP2[3],"botao-piscante-P2")
       }
     }
@@ -144,199 +148,193 @@ const verificarPontos = (jogador) => {
 }
 
 
-const contagemP1 = (numero) => {
-const contador = document.getElementById("tempoP1")
-
-if(numero === 0 && botoesP1[2].classList.contains('ativadoAux')){
-  adicionarClasse(containerUm, "elemento-piscante")
-  setTimeout(() => {
-    removerClasse(containerUm, "elemento-piscante")
-    permitirVirada(cartas1)
-    contagemP1(10)
-  }, 2000)
-  contador.innerHTML = "0"
-  removerClasse(botoesP1[2],'ativadoAux')
- }
-
- else if (numero === 0 && possuiClasse(botoesP1[3],"ativado")){
-  adicionarClasse(containerDois, "elemento-piscante")
-  verificarPontos(2)
-  removerClassePraCada(botoesP1,'ativado')
-  contador.innerHTML = "0"
-  negarVirada(cartas1)
-  containerUm.style.opacity = 0.4
-  containerDois.style.opacity = 1
-  setTimeout(()=>{
-    removerClasse(containerDois, "elemento-piscante")
-    permitirVirada(cartas2)
-    contagemP2(10)
-
-    const podemEmbaralhar = containerDois.querySelectorAll(".pode-virar")
-    const removerCartas = ([a,...b]) => {
-      if(a){
-        containerDois.removeChild(a)
-        removerCartas(b)
-      }
-    }
-    removerCartas(podemEmbaralhar)
-    const criarArray = ([a,...b]) => {
-      if(a===undefined){
-        return []
-      }
-      return [a,...criarArray(b)]
-    }
-
-    const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.7)
-    const adicionarCartas = ([a,...b]) => {
-      if(a){
-        containerDois.appendChild(a)
-        adicionarCartas(b)
-      }
-    }
-    adicionarCartas(cartasEmbaralhadas)
-
-  },2000)
- }
-  else if(numero == 0 && botoesP1[0].classList.contains('ativado')){
-    adicionarClasse(containerDois, 'elemento-piscante')
-    verificarPontos(2)
-    containerUm.style.opacity = 0.4
-    containerDois.style.opacity = 1
-    setTimeout(() => {
-      removerClasse(containerDois, "elemento-piscante")
-      permitirVirada(cartas2)
-      contagemAceleradaP2(10)
-    }, 2000)
-    negarVirada(cartas1)
-    contador.innerHTML = "0"
+const contagemP1 = (numero,velocidade=1000) => {
+  const contador = document.getElementById("tempoP1")
+  if(numero===0){
     if (cartasViradas.length == 1) {
       removerClasse(cartasViradas[0], "virar-carta")
       cartasViradas.length = 0
     }
-    removerClassePraCada(botoesP1,'ativado')
+    if(possuiClasse(botoesP1[0],"ativado")){
+      adicionarClasse(containerDois, 'elemento-piscante')
+      verificarPontos(2)
+      containerUm.style.opacity = 0.4
+      containerDois.style.opacity = 1
+      setTimeout(() => {
+        removerClasse(containerDois, "elemento-piscante")
+        permitirVirada(cartas2)
+        contagemP2(10,500)
+      }, 2000)
+      negarVirada(cartas1)
+      contador.innerHTML = "0"
+      removerClassePraCada(botoesP1,'ativado')
+    }
+    else if(possuiClasse(botoesP1[1],"ativadoAux")){
+      adicionarClasse(containerUm, "elemento-piscante")
+      setTimeout(() => {
+        removerClasse(containerUm, "elemento-piscante")
+        permitirVirada(cartas1)
+        contagemP1(10)
+      }, 2000)
+      contador.innerHTML = "0"
+      removerClasse(botoesP1[1],'ativadoAux')
+    }
+    else if (possuiClasse(botoesP1[3],"ativado")){
+      adicionarClasse(containerDois, "elemento-piscante")
+      verificarPontos(2)
+      removerClassePraCada(botoesP1,'ativado')
+      contador.innerHTML = "0"
+      negarVirada(cartas1)
+      containerUm.style.opacity = 0.4
+      containerDois.style.opacity = 1
+      setTimeout(()=>{
+        removerClasse(containerDois, "elemento-piscante")
+        permitirVirada(cartas2)
+        contagemP2(10)
+        const podemEmbaralhar = containerDois.querySelectorAll(".pode-virar")
+        const removerCartas = ([a,...b]) => {
+          if(a){
+            containerDois.removeChild(a)
+            removerCartas(b)
+          }
+        }
+        removerCartas(podemEmbaralhar)
+        const criarArray = ([a,...b]) => {
+          if(a===undefined){
+            return []
+          }
+          return [a,...criarArray(b)]
+        }
+        const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.7)
+        const adicionarCartas = ([a,...b]) => {
+          if(a){
+            containerDois.appendChild(a)
+            adicionarCartas(b)
+          }
+        }
+        adicionarCartas(cartasEmbaralhadas)
+      },2000)
+    }
+    else {
+      negarVirada(cartas1)
+      verificarPontos(2)
+      adicionarClasse(containerDois, "elemento-piscante")
+      containerUm.style.opacity = 0.4
+      containerDois.style.opacity = 1
+      setTimeout(() => {
+        removerClasse(containerDois, "elemento-piscante")
+        permitirVirada(cartas2)
+        contagemP2(10)
+      }, 2000)
+      contador.innerHTML = "0"
+      removerClassePraCada(botoesP1,'ativado')
+      removerClassePraCada(botoesP1,'botao-piscante-P1') 
+    }
   }
-  else if (numero === 0) {
-    negarVirada(cartas1)
-    verificarPontos(2)
-    adicionarClasse(containerDois, "elemento-piscante")
-    containerUm.style.opacity = 0.4
-    containerDois.style.opacity = 1
-    setTimeout(() => {
-      removerClasse(containerDois, "elemento-piscante")
-      permitirVirada(cartas2)
-      contagemP2(10)
-    }, 2000)
-    contador.innerHTML = "0"
-    if (cartasViradas.length == 1) {
-      removerClasse(cartasViradas[0], "virar-carta")
-      cartasViradas.length = 0
-    }
-    removerClassePraCada(botoesP1,'ativado')
-    removerClassePraCada(botoesP1,'botao-piscante-P1')
-  } else {
+  else {
     verificarPontos(1)
     contador.innerHTML = numero
     setTimeout(() => {
-      contagemP1(numero - 1)
-    }, 1000)
+      contagemP1(numero - 1,velocidade)
+    }, velocidade)
   }
 }
 
-const contagemP2 = (numero) => {
+const contagemP2 = (numero,velocidade=1000) => {
   const contador = document.getElementById("tempoP2")
-  if(numero === 0 && botoesP2[2].classList.contains('ativadoAux')){
-    adicionarClasse(containerDois, "elemento-piscante")
-    setTimeout(() => {
-      removerClasse(containerDois, "elemento-piscante")
-      permitirVirada(cartas2)
-      contagemP2(10)
-    }, 2000)
-    contador.innerHTML = "0"
-    removerClasse(botoesP2[2],'ativadoAux')
-  } 
-  else if(numero == 0 && botoesP2[0].classList.contains('ativado')){
-    adicionarClasse(containerUm, 'elemento-piscante')
-    verificarPontos(1)
-    containerDois.style.opacity = 0.4
-    containerUm.style.opacity = 1
-    setTimeout(() => {
-      removerClasse(containerUm, "elemento-piscante")
-      permitirVirada(cartas1)
-      contagemAceleradaP1(10)
-    }, 2000)
-    negarVirada(cartas2)
-    contador.innerHTML = "0"
+  if (numero===0){
     if (cartasViradas.length == 1) {
       removerClasse(cartasViradas[0], "virar-carta")
       cartasViradas.length = 0
     }
-    removerClassePraCada(botoesP2,'ativado')
-    removerClassePraCada(botoesP2,'botao-piscante-P2')
+    if(possuiClasse(botoesP2[0],"ativado")){
+      adicionarClasse(containerUm, 'elemento-piscante')
+      verificarPontos(1)
+      containerDois.style.opacity = 0.4
+      containerUm.style.opacity = 1
+      setTimeout(() => {
+        removerClasse(containerUm, "elemento-piscante")
+        permitirVirada(cartas1)
+        contagemP1(10,500)
+      }, 2000)
+      negarVirada(cartas2)
+      contador.innerHTML = "0"
+      removerClassePraCada(botoesP2,'ativado')
+      removerClassePraCada(botoesP2,'botao-piscante-P2')
+    }
+    else if (possuiClasse(botoesP2[1],"ativadoAux")){
+      adicionarClasse(containerDois, "elemento-piscante")
+      setTimeout(() => {
+        removerClasse(containerDois, "elemento-piscante")
+        permitirVirada(cartas2)
+        contagemP2(10)
+      }, 2000)
+      contador.innerHTML = "0"
+      removerClasse(botoesP2[1],'ativadoAux')
+    }
+    else if (possuiClasse(botoesP2[3],"ativado")){
+      adicionarClasse(containerUm, "elemento-piscante")
+      verificarPontos(1)
+      removerClassePraCada(botoesP2,'ativado')
+      contador.innerHTML = "0"
+      negarVirada(cartas2)
+      containerDois.style.opacity = 0.4
+      containerUm.style.opacity = 1
+      setTimeout(()=>{
+        removerClasse(containerUm, "elemento-piscante")
+        permitirVirada(cartas1)
+        contagemP1(10)
+        const podemEmbaralhar = containerUm.querySelectorAll(".pode-virar")
+        const removerCartas = ([a,...b]) => {
+          if(a){
+            containerUm.removeChild(a)
+            removerCartas(b)
+          }
+        }
+        removerCartas(podemEmbaralhar)
+        const criarArray = ([a,...b]) => {
+          if(a===undefined){
+            return []
+          }
+          return [a,...criarArray(b)]
+        }
+    
+        const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.7)
+        const adicionarCartas = ([a,...b]) => {
+          if(a){
+            containerUm.appendChild(a)
+            adicionarCartas(b)
+          }
+        }
+        adicionarCartas(cartasEmbaralhadas)
+      },2000)
+    }
+    else {
+      verificarPontos(1)
+      adicionarClasse(containerUm, "elemento-piscante")
+      containerDois.style.opacity = 0.4
+      containerUm.style.opacity = 1
+      setTimeout(() => {
+        removerClasse(containerUm, "elemento-piscante")
+        permitirVirada(cartas1)
+        contagemP1(10)
+      }, 2000)
+      negarVirada(cartas2)
+      contador.innerHTML = "0"
+      if (cartasViradas.length == 1) {
+        removerClasse(cartasViradas[0], "virar-carta")
+        cartasViradas.length = 0
+      }
+      removerClassePraCada(botoesP2,'ativado')
+      removerClassePraCada(botoesP2,'botao-piscante-P2')
+    }
   }
-  else if (numero === 0 && possuiClasse(botoesP2[3],"ativado")){
-    adicionarClasse(containerUm, "elemento-piscante")
-    verificarPontos(1)
-    removerClassePraCada(botoesP2,'ativado')
-    contador.innerHTML = "0"
-    negarVirada(cartas2)
-    containerDois.style.opacity = 0.4
-    containerUm.style.opacity = 1
-    setTimeout(()=>{
-      removerClasse(containerUm, "elemento-piscante")
-      permitirVirada(cartas1)
-      contagemP1(10)
-  
-      const podemEmbaralhar = containerUm.querySelectorAll(".pode-virar")
-      const removerCartas = ([a,...b]) => {
-        if(a){
-          containerUm.removeChild(a)
-          removerCartas(b)
-        }
-      }
-      removerCartas(podemEmbaralhar)
-      const criarArray = ([a,...b]) => {
-        if(a===undefined){
-          return []
-        }
-        return [a,...criarArray(b)]
-      }
-  
-      const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.7)
-      const adicionarCartas = ([a,...b]) => {
-        if(a){
-          containerUm.appendChild(a)
-          adicionarCartas(b)
-        }
-      }
-      adicionarCartas(cartasEmbaralhadas)
-  
-    },2000)
-   }
-
-  else if (numero === 0) {
-    verificarPontos(1)
-    adicionarClasse(containerUm, "elemento-piscante")
-    containerDois.style.opacity = 0.4
-    containerUm.style.opacity = 1
-    setTimeout(() => {
-      removerClasse(containerUm, "elemento-piscante")
-      permitirVirada(cartas1)
-      contagemP1(10)
-    }, 2000)
-    negarVirada(cartas2)
-    contador.innerHTML = "0"
-    if (cartasViradas.length == 1) {
-      removerClasse(cartasViradas[0], "virar-carta")
-      cartasViradas.length = 0
-    }
-    removerClassePraCada(botoesP2,'ativado')
-    removerClassePraCada(botoesP2,'botao-piscante-P2')
-  }else{
+  else{
     verificarPontos(2)
     contador.innerHTML = numero
     setTimeout(() => {
-      contagemP2(numero - 1)
-    }, 1000)
+      contagemP2(numero - 1,velocidade)
+    }, velocidade)
   }
 }
 contagemP1(10)
@@ -367,7 +365,11 @@ const virarCarta = (carta) => {
     //Se a carta ainda não foi virada, ou seja, não possui a classe 'virar-carta' e a quantidade de cartas viradas for menor que dois, ela receberá a classe e será adicionada na lista de cartas viradas.
     else if (!possuiClasse(carta, "virar-carta") && cartasViradas.length < 2) {
       adicionarClasse(carta, "virar-carta")
-      cartasViradas.push(carta)
+      if(cartasViradas.length === 0){
+        cartasViradas[0] = carta
+      } else {
+        cartasViradas[1] = carta
+      }
 
       //Caso já existam duas cartas viradas, temos que checar se as cartas escolhidas são iguais ou não.
       if (cartasViradas.length === 2) {
@@ -446,19 +448,19 @@ const negarVirada = (cartas, i = 0) => {
 }
 
 const repetirRodadaP1 = () => {
-  if(pontosP1.innerHTML>3){
-    pontosP1.innerHTML -= 4
+  if(pontosP1.innerHTML>2 && !containerUm.classList.contains('elemento-piscante')){
+    pontosP1.innerHTML -= 3
     removerClassePraCada(botoesP1,'botao-piscante-P1')
-    adicionarClasse(botoesP1[2],"ativado")
-    adicionarClasse(botoesP1[2],"ativadoAux")
+    adicionarClasse(botoesP1[1],"ativado")
+    adicionarClasse(botoesP1[1],"ativadoAux")
   }
 }
 
 const virarCartasP1 = () => {
-  if(pontosP1.innerHTML>2){
-    pontosP1.innerHTML -= 3
+  if(pontosP1.innerHTML>3 && !containerUm.classList.contains('elemento-piscante')){
+    pontosP1.innerHTML -= 4
     removerClassePraCada(botoesP1,'botao-piscante-P1')
-    adicionarClasse(botoesP1[1],"ativado")
+    adicionarClasse(botoesP1[2],"ativado")
     const podemVirar = containerUm.querySelectorAll('.pode-virar')
     adicionarClassePraCada(podemVirar,'virar-carta')
     setTimeout(()=>{
@@ -468,7 +470,7 @@ const virarCartasP1 = () => {
 }
 
 const acelerarTempoInimigoP1 = () => {
-  if(pontosP1.innerHTML>1){
+  if(pontosP1.innerHTML>1 && !containerUm.classList.contains('elemento-piscante')){
     pontosP1.innerHTML -= 2
     removerClassePraCada(botoesP1,'botao-piscante-P1')
     adicionarClasse(botoesP1[0],"ativado")
@@ -476,26 +478,26 @@ const acelerarTempoInimigoP1 = () => {
 }
 
 const embaralharCartasOponenteP1 = () => {
-  if(pontosP1.innerHTML>4){
-    pontosP1.innerHTML -= 5
+  if(pontosP1.innerHTML>3 && !containerUm.classList.contains('elemento-piscante')){
+    pontosP1.innerHTML -= 4
     removerClassePraCada(botoesP1,'botao-piscante-P1')
     adicionarClasse(botoesP1[3],"ativado")
   }
 }
 
 const repetirRodadaP2 = () => {
-  if(pontosP2.innerHTML>3){
-    pontosP2.innerHTML -= 4
+  if(pontosP2.innerHTML>2 && !containerDois.classList.contains('elemento-piscante')){
+    pontosP2.innerHTML -= 3
     removerClassePraCada(botoesP2,'botao-piscante-P2')
-    adicionarClasse(botoesP2[2],"ativado")
-    adicionarClasse(botoesP2[2],"ativadoAux")
+    adicionarClasse(botoesP2[1],"ativado")
+    adicionarClasse(botoesP2[1],"ativadoAux")
   }
 }
 
 const virarCartasP2 = () => {
-  if(pontosP2.innerHTML>2){
-    pontosP2.innerHTML -= 3
-    adicionarClasse(botoesP2[1],"ativado")
+  if(pontosP2.innerHTML>3 && !containerDois.classList.contains('elemento-piscante')){
+    pontosP2.innerHTML -= 4
+    adicionarClasse(botoesP2[2],"ativado")
     const podemVirar = containerDois.querySelectorAll('.pode-virar')
     adicionarClassePraCada(podemVirar,'virar-carta')
     setTimeout(()=>{
@@ -506,7 +508,7 @@ const virarCartasP2 = () => {
 }
 
 const acelerarTempoInimigoP2 = () => {
-  if(pontosP2.innerHTML>1){
+  if(pontosP2.innerHTML>1 && !containerDois.classList.contains('elemento-piscante')){
     pontosP2.innerHTML -= 2
     adicionarClasse(botoesP2[0],"ativado")
     removerClassePraCada(botoesP2,'botao-piscante-P2')
@@ -514,209 +516,9 @@ const acelerarTempoInimigoP2 = () => {
 }
 
 const embaralharOponenteP2 = () => {
-  if(pontosP2.innerHTML>4){
-    pontosP2.innerHTML -= 5
+  if(pontosP2.innerHTML>3 && !containerDois.classList.contains('elemento-piscante')){
+    pontosP2.innerHTML -= 4
     removerClassePraCada(botoesP2,'botao-piscante-P2')
     adicionarClasse(botoesP2[3],"ativado")
   }
 }
-
-const contagemAceleradaP1 = (numero) =>{
-  const contador = document.getElementById('tempoP1')
-
-  if(numero === 0 && botoesP1[2].classList.contains('ativadoAux')){
-    adicionarClasse(containerUm, "elemento-piscante")
-    setTimeout(() => {
-      removerClasse(containerUm, "elemento-piscante")
-      permitirVirada(cartas1)
-      contagemP1(10)
-    }, 2000)
-    contador.innerHTML = "0"
-    removerClasse(botoesP1[2],'ativadoAux')
-   }
-   else if (numero === 0 && possuiClasse(botoesP1[3],"ativado")){
-    adicionarClasse(containerDois, "elemento-piscante")
-    verificarPontos(2)
-    removerClassePraCada(botoesP1,'ativado')
-    contador.innerHTML = "0"
-    negarVirada(cartas1)
-    containerUm.style.opacity = 0.4
-    containerDois.style.opacity = 1
-    setTimeout(()=>{
-      removerClasse(containerDois, "elemento-piscante")
-      permitirVirada(cartas2)
-      contagemP2(10)
-  
-      const podemEmbaralhar = containerDois.querySelectorAll(".pode-virar")
-      const removerCartas = ([a,...b]) => {
-        if(a){
-          containerDois.removeChild(a)
-          removerCartas(b)
-        }
-      }
-      removerCartas(podemEmbaralhar)
-      const criarArray = ([a,...b]) => {
-        if(a===undefined){
-          return []
-        }
-        return [a,...criarArray(b)]
-      }
-  
-      const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.7)
-      const adicionarCartas = ([a,...b]) => {
-        if(a){
-          containerDois.appendChild(a)
-          adicionarCartas(b)
-        }
-      }
-      adicionarCartas(cartasEmbaralhadas)
-  
-    },2000)
-   }
-   
-   else if(numero == 0 && botoesP1[0].classList.contains('ativado')){
-    adicionarClasse(containerDois, 'elemento-piscante')
-    verificarPontos(2)
-    containerUm.style.opacity = 0.4
-    containerDois.style.opacity = 1
-    setTimeout(() => {
-      removerClasse(containerDois, "elemento-piscante")
-      permitirVirada(cartas2)
-      contagemAceleradaP2(10)
-    }, 2000)
-    negarVirada(cartas1)
-    contador.innerHTML = "0"
-    if (cartasViradas.length == 1) {
-      removerClasse(cartasViradas[0], "virar-carta")
-      cartasViradas.length = 0
-    }
-    removerClassePraCada(botoesP1,'ativado')
-  }
-
-  else if(numero == 0){
-    verificarPontos(2)
-    adicionarClasse(containerDois, "elemento-piscante")
-    containerUm.style.opacity = 0.4
-    containerDois.style.opacity = 1
-    setTimeout(() => {
-      removerClasse(containerDois, "elemento-piscante")
-      permitirVirada(cartas2)
-      contagemP2(10)
-    }, 2000)
-    negarVirada(cartas1)
-    contador.innerHTML = "0"
-    if (cartasViradas.length == 1) {
-      removerClasse(cartasViradas[0], "virar-carta")
-      cartasViradas.length = 0
-    }
-    removerClassePraCada(botoesP1,'ativado')
-    removerClassePraCada(botoesP1,'botao-piscante-P1')
-  } 
-  else {
-    verificarPontos(1)
-    contador.innerHTML = numero
-    setTimeout(() => {
-      contagemAceleradaP1(numero - 1)
-    }, 500)
-  }
-}
-
-const contagemAceleradaP2 = (numero) =>{
-  const contador = document.getElementById('tempoP2')
-  if(numero === 0 && botoesP2[2].classList.contains('ativadoAux')){
-    adicionarClasse(containerDois, "elemento-piscante")
-    setTimeout(() => {
-      removerClasse(containerDois, "elemento-piscante")
-      permitirVirada(cartas2)
-      contagemP2(10)
-    }, 2000)
-    contador.innerHTML = "0"
-    removerClasse(botoesP2[2],'ativadoAux')
-  }
-  else if(numero == 0 && botoesP2[0].classList.contains('ativado')){
-    adicionarClasse(containerUm, 'elemento-piscante')
-    verificarPontos(1)
-    containerDois.style.opacity = 0.4
-    containerUm.style.opacity = 1
-    setTimeout(() => {
-      removerClasse(containerUm, "elemento-piscante")
-      permitirVirada(cartas1)
-      contagemAceleradaP1(10)
-    }, 2000)
-    negarVirada(cartas2)
-    contador.innerHTML = "0"
-    if (cartasViradas.length == 1) {
-      removerClasse(cartasViradas[0], "virar-carta")
-      cartasViradas.length = 0
-    }
-    removerClassePraCada(botoesP2,'ativado')
-    removerClassePraCada(botoesP2,'botao-piscante-P2')
-  }
-  else if (numero === 0 && possuiClasse(botoesP2[3],"ativado")){
-    adicionarClasse(containerUm, "elemento-piscante")
-    verificarPontos(1)
-    removerClassePraCada(botoesP2,'ativado')
-    contador.innerHTML = "0"
-    negarVirada(cartas2)
-    containerDois.style.opacity = 0.4
-    containerUm.style.opacity = 1
-    setTimeout(()=>{
-      removerClasse(containerUm, "elemento-piscante")
-      permitirVirada(cartas1)
-      contagemP1(10)
-  
-      const podemEmbaralhar = containerUm.querySelectorAll(".pode-virar")
-      const removerCartas = ([a,...b]) => {
-        if(a){
-          containerUm.removeChild(a)
-          removerCartas(b)
-        }
-      }
-      removerCartas(podemEmbaralhar)
-      const criarArray = ([a,...b]) => {
-        if(a===undefined){
-          return []
-        }
-        return [a,...criarArray(b)]
-      }
-  
-      const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.7)
-      const adicionarCartas = ([a,...b]) => {
-        if(a){
-          containerUm.appendChild(a)
-          adicionarCartas(b)
-        }
-      }
-      adicionarCartas(cartasEmbaralhadas)
-  
-    },2000)
-   }
-  else if(numero == 0){
-    verificarPontos(1)
-    adicionarClasse(containerUm, "elemento-piscante")
-    containerDois.style.opacity = 0.4
-    containerUm.style.opacity = 1
-    setTimeout(() => {
-      removerClasse(containerUm, "elemento-piscante")
-      permitirVirada(cartas1)
-      contagemP1(10)
-    }, 2000)
-    negarVirada(cartas2)
-    contador.innerHTML = "0"
-    if (cartasViradas.length == 1) {
-      removerClasse(cartasViradas[0], "virar-carta")
-      cartasViradas.length = 0
-    }
-    removerClassePraCada(botoesP2,'ativado')
-    removerClassePraCada(botoesP2,'botao-piscante-P2')
-  } 
-  else {
-    verificarPontos(2)
-    contador.innerHTML = numero
-    setTimeout(() => {
-      contagemAceleradaP2(numero - 1)
-    }, 500)
-  }
-}
-
-
