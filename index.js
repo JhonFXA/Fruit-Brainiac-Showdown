@@ -8,11 +8,28 @@ const botoesP2 = boxHabilidades[1].querySelectorAll(".botao") //Botões de habil
 const tempoP1 = document.getElementById('tempoP1') //Elemento do tempo do jogador 1
 const tempoP2 = document.getElementById('tempoP2') //Elemento do tempo do jogador 2
 const cartasViradas = [] //Lista vazia, onde serão armazenadas as cartas escolhidas pelo jogador
+pontosP1.innerHTML=10
+pontosP2.innerHTML=12
 
 //Lista de frutas presentes nas cartas do jogo
 const frutas = ["côco","cereja","pêssego","maçã","melancia","banana","limão","morango","abacate","pera", "uva", "abacaxi"]
 
 
+const primeiraJogada = () => {
+  adicionarClassePraCada(cartas1,"virar-carta")
+  adicionarClassePraCada(cartas2,"virar-carta")
+  setTimeout(()=>{
+    removerClassePraCada(cartas1, 'virar-carta')
+    removerClassePraCada(cartas2, 'virar-carta')
+    adicionarClasse(containerUm, 'elemento-piscante')
+    containerDois.style.opacity = 0.4  
+    setTimeout(()=>{
+      contagemP1(10)
+      removerClasse(containerUm, 'elemento-piscante')
+      adicionarClassePraCada(cartas1, 'pode-virar')
+    },2000)
+  },1600)
+}
 
 
 //A função 'eventoDescricao' foi criada para adicionar um evento de mouseover para cada botão do jogo. Quando o mouse for colocado em cima do botão, a descrição desse botão vai receber uma classe que o deixará visível.
@@ -31,6 +48,8 @@ const eventoDescricao = ([a,...b], jogador, i=0) => {
 }
 eventoDescricao(botoesP1,1)
 eventoDescricao(botoesP2,2)
+
+
 
 //A função 'criarCartas' serve para criar as cartas do jogo, como o próprio nome já diz. Dentro dela há a função 'criarElemento', que cria um elemento de acordo com a tag e a classe que for passada nos parâmetros. Depois de criar a carta, a frente e o verso são inseridos dentro dela e a carta é retornada.
 const criarCartas = (fruta) => {
@@ -64,7 +83,7 @@ const carregarGrade = (container) => {
       return carregarGradeAux(b)
     }
   }
-  carregarGradeAux(duplica.sort(() => Math.random() - 0.7))
+  carregarGradeAux(duplica.sort(() => Math.random() - 0.5))
 }
 carregarGrade(containerUm)
 carregarGrade(containerDois)
@@ -73,13 +92,7 @@ const cartas = document.querySelectorAll(".carta") //Todas as cartas do jogo
 const cartas1 = containerUm.querySelectorAll(".carta") //Todas as cartas do jogador 1
 const cartas2 = containerDois.querySelectorAll(".carta") //Todas as cartas do jogador 2
 
-const primeiraJogada = (cartas, i = 0) => {
-  if (i < cartas.length) {
-    cartas[i].classList.add("pode-virar")
-    return primeiraJogada(cartas, i + 1)
-  }
-}
-primeiraJogada(cartas1)
+
 
 const possuiClasse = (elemento, classe) => elemento.classList.contains(classe) //Checa se um elemento possui uma classe.
 const adicionarClasse = (elemento, classe) => elemento.classList.add(classe) //Adiciona classe para o elemento.
@@ -92,18 +105,22 @@ return pausarClick(cartas, ordem, i + 1)
 }
 }
 
+//A função 'existeAtivado' recebe uma lista e verifica se existe algum elemento na lista com a classe 'ativado'. Ela é utilizada para checar se o botão foi escolhido pelo jogador. 
 const existeAtivado = ([a,...b]) => {
   if(a === undefined) return false
   else if(possuiClasse(a,"ativado")) return true
   return existeAtivado(b)
 }
 
+//A função 'removerClassePraCada' recebe uma lista e uma classe como parâmetros. Ao ser chamada ela remove a classe para cada elemento.
 const removerClassePraCada = ([a, ...b], classe) => {
   if (a) {
     removerClasse(a,classe)
     removerClassePraCada(b, classe)
   }
 }
+
+//A função 'adicionarClassePraCada' recebe uma  lista e uma classe como parâmetros. Ao ser chamada ela adiciona a classe para cada elemento.
 const adicionarClassePraCada = ([a, ...b], classe) => {
   if (a) {
     adicionarClasse(a,classe)
@@ -111,7 +128,7 @@ const adicionarClassePraCada = ([a, ...b], classe) => {
   }
 }
 
-
+//A função 'verificarPontos' é responsável por permitir que os botões sejam utilizados dependendo da pontuação do jogador. Quando o tempo está correndo e nenhum dos botões de habilidades foram escolhidos, eles podem receber a classe 'botao-piscante' que os deixam clicáveis e piscando.
 const verificarPontos = (jogador) => {
   if(jogador===1){
     if(!existeAtivado(botoesP1)){
@@ -147,9 +164,12 @@ const verificarPontos = (jogador) => {
   }
 }
 
-
+//A função 'contagemP1' é a responsável pelo temporizador do jogador 1. Ela recebe dois parâmetros: número e velocidade.
 const contagemP1 = (numero,velocidade=1000) => {
   const contador = document.getElementById("tempoP1")
+  contador.innerHTML = "0"
+
+  //Se o tempo chegar no zero, deverá ocorrer uma verificação para checar qu
   if(numero===0){
     if (cartasViradas.length == 1) {
       removerClasse(cartasViradas[0], "virar-carta")
@@ -166,7 +186,6 @@ const contagemP1 = (numero,velocidade=1000) => {
         contagemP2(10,500)
       }, 2000)
       negarVirada(cartas1)
-      contador.innerHTML = "0"
       removerClassePraCada(botoesP1,'ativado')
     }
     else if(possuiClasse(botoesP1[1],"ativadoAux")){
@@ -176,14 +195,12 @@ const contagemP1 = (numero,velocidade=1000) => {
         permitirVirada(cartas1)
         contagemP1(10)
       }, 2000)
-      contador.innerHTML = "0"
       removerClasse(botoesP1[1],'ativadoAux')
     }
     else if (possuiClasse(botoesP1[3],"ativado")){
       adicionarClasse(containerDois, "elemento-piscante")
       verificarPontos(2)
       removerClassePraCada(botoesP1,'ativado')
-      contador.innerHTML = "0"
       negarVirada(cartas1)
       containerUm.style.opacity = 0.4
       containerDois.style.opacity = 1
@@ -205,7 +222,7 @@ const contagemP1 = (numero,velocidade=1000) => {
           }
           return [a,...criarArray(b)]
         }
-        const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.7)
+        const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.5)
         const adicionarCartas = ([a,...b]) => {
           if(a){
             containerDois.appendChild(a)
@@ -226,7 +243,6 @@ const contagemP1 = (numero,velocidade=1000) => {
         permitirVirada(cartas2)
         contagemP2(10)
       }, 2000)
-      contador.innerHTML = "0"
       removerClassePraCada(botoesP1,'ativado')
       removerClassePraCada(botoesP1,'botao-piscante-P1') 
     }
@@ -299,7 +315,7 @@ const contagemP2 = (numero,velocidade=1000) => {
           return [a,...criarArray(b)]
         }
     
-        const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.7)
+        const cartasEmbaralhadas = criarArray(podemEmbaralhar).sort(()=>Math.random() - 0.5)
         const adicionarCartas = ([a,...b]) => {
           if(a){
             containerUm.appendChild(a)
@@ -337,7 +353,6 @@ const contagemP2 = (numero,velocidade=1000) => {
     }, velocidade)
   }
 }
-contagemP1(10)
 
 //A função 'virarCartaAux' funciona como um 'forEach', que para cada carta, adiciona um evento de click que chama a função 'virarCarta'.
 const virarCartaAux = (cartas, i = 0) => {
@@ -353,80 +368,79 @@ virarCartaAux(cartas)
 
 
 const virarCarta = (carta) => {
-    if (carta.classList.contains("pode-virar")) {
-    const puxarElemento = (elemPai, identificador) =>
-    elemPai.querySelector(identificador) //Puxa algum elemento para ser utilizado.
-    const puxarUrl = (elemento) =>
-    getComputedStyle(elemento).getPropertyValue("background-image") //Guarda a url da imagem de um elemento
+  if (carta.classList.contains("pode-virar")) {
+  const puxarElemento = (elemPai, identificador) =>
+  elemPai.querySelector(identificador) //Puxa algum elemento para ser utilizado.
+  const puxarUrl = (elemento) => getComputedStyle(elemento).getPropertyValue("background-image") //Guarda a url da imagem de um elemento
 
 
-    //Se a carta que entrar na função como parâmetro já tiver a classe 'cartas-iguais', significa que ela já teve seu par resolvido, portanto, ela não pode ser virada novamente.
-    if (possuiClasse(carta, "cartas-iguais")) return
-    //Se a carta ainda não foi virada, ou seja, não possui a classe 'virar-carta' e a quantidade de cartas viradas for menor que dois, ela receberá a classe e será adicionada na lista de cartas viradas.
-    else if (!possuiClasse(carta, "virar-carta") && cartasViradas.length < 2) {
-      adicionarClasse(carta, "virar-carta")
-      if(cartasViradas.length === 0){
-        cartasViradas[0] = carta
-      } else {
+  //Se a carta que entrar na função como parâmetro já tiver a classe 'cartas-iguais', significa que ela já teve seu par resolvido, portanto, ela não pode ser virada novamente.
+  if (possuiClasse(carta, "cartas-iguais")) return
+  //Se a carta ainda não foi virada, ou seja, não possui a classe 'virar-carta' e a quantidade de cartas viradas for menor que dois, ela receberá a classe e será adicionada na lista de cartas viradas.
+  else if (!possuiClasse(carta, "virar-carta") && cartasViradas.length < 2) {
+    adicionarClasse(carta, "virar-carta")
+    if(cartasViradas.length === 0){
+      cartasViradas[0] = carta
+    } else {
         cartasViradas[1] = carta
-      }
+    }
 
-      //Caso já existam duas cartas viradas, temos que checar se as cartas escolhidas são iguais ou não.
-      if (cartasViradas.length === 2) {
-        const escolhas = [cartasViradas[0], cartasViradas[1]] //Aqui vão ficar as cartas que o jogador escolheu.
+    //Caso já existam duas cartas viradas, temos que checar se as cartas escolhidas são iguais ou não.
+    if (cartasViradas.length === 2) {
+      const escolhas = [cartasViradas[0], cartasViradas[1]] //Aqui vão ficar as cartas que o jogador escolheu.
 
-        //Aqui vão ficar as frentes das cartas que o jogador escolheu.
-        const frentes = [
+      //Aqui vão ficar as frentes das cartas que o jogador escolheu.
+      const frentes = [
         puxarElemento(escolhas[0], ".frente"),
         puxarElemento(escolhas[1], ".frente"),
-        ]
+      ]
 
-        //Aqui vão ficar os versos das cartas que o jogador escolheu.
-        const versos = [
+      //Aqui vão ficar os versos das cartas que o jogador escolheu.
+      const versos = [
         puxarElemento(escolhas[0], ".verso"),
         puxarElemento(escolhas[1], ".verso"),
-        ]
+      ]
 
-        const urlFrutas = [puxarUrl(frentes[0]), puxarUrl(frentes[1])] //Essa lista vai guardar a url das imagens de cada frente.
-        cartasViradas.length = 0 //Após a escolha de duas cartas, o número de viradas tem que voltar à zero.
-        pausarClick(cartas, "none") //O clicks devem ser pausados na escolha de duas cartas.
+      const urlFrutas = [puxarUrl(frentes[0]), puxarUrl(frentes[1])] //Essa lista vai guardar a url das imagens de cada frente.
+      cartasViradas.length = 0 //Após a escolha de duas cartas, o número de viradas tem que voltar à zero.
+      pausarClick(cartas, "none") //O clicks devem ser pausados na escolha de duas cartas.
 
 
-        // O 'setTimeout' define um atraso, tudo o que estiver dentro de seu escopo só será executado após 0.7 segundos. Está sendo utilizado para que dê tempo de o jogador ver as cartas que escolheu antes de serem viradas novamente.
-        setTimeout(() => {
-          //Ambas as cartas irão perder a classe de virada e serão escondidas novamente,...
-          removerClassePraCada(escolhas, "virar-carta")
+      // O 'setTimeout' define um atraso, tudo o que estiver dentro de seu escopo só será executado após 0.7 segundos. Está sendo utilizado para que dê tempo de o jogador ver as cartas que escolheu antes de serem viradas novamente.
+      setTimeout(() => {
+        //Ambas as cartas irão perder a classe de virada e serão escondidas novamente,...
+        removerClassePraCada(escolhas, "virar-carta")
           
-          const igualdadesAntigasP1 = containerUm.querySelectorAll(".cartas-iguais")
-          const igualdadesAntigasP2 = containerDois.querySelectorAll(".cartas-iguais")
-          //mas caso as frutas sejam iguais, elas receberão a classe de 'cartas-iguais', que as deixará transparentes e travadas.
-          if (urlFrutas[0] === urlFrutas[1]) {
-            removerClassePraCada(escolhas,"pode-virar")
-            adicionarClassePraCada(escolhas,"cartas-iguais")
-            const igualdadesP1 = containerUm.querySelectorAll(".cartas-iguais")
-            const igualdadesP2 = containerDois.querySelectorAll(".cartas-iguais")
-            if (igualdadesP1.length == 20) {
-              window.alert("Jogador 1 venceu")
-              window.location.reload()
-            }
-            if (igualdadesP2.length == 20) {
-              window.alert("Jogador 2 venceu")
-              window.location.reload()
-            }
-            versos[0].style.display = "none"
-            versos[1].style.display = "none"
-
-            const igualdadesAtuaisP1 = containerUm.querySelectorAll(".cartas-iguais")
-            const igualdadesAtuaisP2 = containerDois.querySelectorAll(".cartas-iguais")
-
-            if(igualdadesAtuaisP1.length>igualdadesAntigasP1.length){
-            pontosP1.innerHTML ++
-            }
-            else if(igualdadesAtuaisP2.length>igualdadesAntigasP2.length){
-            pontosP2.innerHTML ++
-            }
+        const igualdadesAntigasP1 = containerUm.querySelectorAll(".cartas-iguais")
+        const igualdadesAntigasP2 = containerDois.querySelectorAll(".cartas-iguais")
+        //mas caso as frutas sejam iguais, elas receberão a classe de 'cartas-iguais', que as deixará transparentes e travadas.
+        if (urlFrutas[0] === urlFrutas[1]) {
+          removerClassePraCada(escolhas,"pode-virar")
+          adicionarClassePraCada(escolhas,"cartas-iguais")
+          const igualdadesP1 = containerUm.querySelectorAll(".cartas-iguais")
+          const igualdadesP2 = containerDois.querySelectorAll(".cartas-iguais")
+          if (igualdadesP1.length == 24) {
+            window.alert("Jogador 1 venceu")
+            window.location.reload()
           }
-          pausarClick(cartas, "all") //Retorna o evento de click nas cartas.
+          if (igualdadesP2.length == 24) {
+            window.alert("Jogador 2 venceu")
+            window.location.reload()
+          }
+          versos[0].style.display = "none"
+          versos[1].style.display = "none"
+
+          const igualdadesAtuaisP1 = containerUm.querySelectorAll(".cartas-iguais")
+          const igualdadesAtuaisP2 = containerDois.querySelectorAll(".cartas-iguais")
+
+          if(igualdadesAtuaisP1.length>igualdadesAntigasP1.length){
+            pontosP1.innerHTML ++
+          }
+          else if(igualdadesAtuaisP2.length>igualdadesAntigasP2.length){
+            pontosP2.innerHTML ++
+          }
+        }
+        pausarClick(cartas, "all") //Retorna o evento de click nas cartas.
         }, 700)
       }
     }
@@ -446,7 +460,7 @@ const negarVirada = (cartas, i = 0) => {
     return negarVirada(cartas, i + 1)
   }
 }
-
+//Botão pra o jogador 1 usar a habilidade de repetir a rodada, remove 3 pontos do jogador 1 e adiciona duas classes ao botão após ser clicado
 const repetirRodadaP1 = () => {
   if(pontosP1.innerHTML>2 && !containerUm.classList.contains('elemento-piscante')){
     pontosP1.innerHTML -= 3
@@ -455,7 +469,7 @@ const repetirRodadaP1 = () => {
     adicionarClasse(botoesP1[1],"ativadoAux")
   }
 }
-
+//Botão pra o jogador 1 usar habilidade virar cartas, remove 4 pontos do jogador 1 e adiciona a classe 'ativado' ao botao, após isso adiciona a classe 'virar-carta' a todas as cartas do jogador 1, revelando todas as cartas por 1.5s, apos esse tempo a classe é removida e as cartas ficam com o verso para cima novamente
 const virarCartasP1 = () => {
   if(pontosP1.innerHTML>3 && !containerUm.classList.contains('elemento-piscante')){
     pontosP1.innerHTML -= 4
@@ -468,7 +482,7 @@ const virarCartasP1 = () => {
     },1500)
   }  
 }
-
+//Botão para o jogador 1 usar habilidade de acelerar t
 const acelerarTempoInimigoP1 = () => {
   if(pontosP1.innerHTML>1 && !containerUm.classList.contains('elemento-piscante')){
     pontosP1.innerHTML -= 2
@@ -484,7 +498,7 @@ const embaralharCartasOponenteP1 = () => {
     adicionarClasse(botoesP1[3],"ativado")
   }
 }
-
+//Botão pra o jogador 2 usar a habilidade de repetir a rodada, remove 3 pontos do jogador 2 e adiciona duas classes ao botão após ser clicado
 const repetirRodadaP2 = () => {
   if(pontosP2.innerHTML>2 && !containerDois.classList.contains('elemento-piscante')){
     pontosP2.innerHTML -= 3
@@ -494,6 +508,7 @@ const repetirRodadaP2 = () => {
   }
 }
 
+//Botão pra o jogador 2 usar habilidade virar cartas, remove 4 pontos do jogador 2 e adiciona a classe 'ativado' ao botao, após isso adiciona a classe 'virar-carta' a todas as cartas do jogador 2, revelando todas as cartas por 1.5s, apos esse tempo a classe é removida e as cartas ficam com o verso para cima novamente
 const virarCartasP2 = () => {
   if(pontosP2.innerHTML>3 && !containerDois.classList.contains('elemento-piscante')){
     pontosP2.innerHTML -= 4
@@ -522,3 +537,5 @@ const embaralharOponenteP2 = () => {
     adicionarClasse(botoesP2[3],"ativado")
   }
 }
+
+primeiraJogada()

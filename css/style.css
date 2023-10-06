@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Amiga Forever', sans-serif;
-    background-image: url("https://images3.alphacoders.com/272/272707.jpg");
+    background-image: url("../imagens/fundo.jpg");
     height: 100vh;
     background-size: cover;
     display: flex;
@@ -220,7 +220,6 @@ span {
 }
 
 .container2 {
-    opacity: 40%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
