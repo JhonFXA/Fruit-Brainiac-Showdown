@@ -4,8 +4,13 @@
     box-sizing: border-box;
     border: none;
     list-style: none;
+    text-decoration: none;
 }
 
 img {
     user-select: none;
+}
+
+button {
+    cursor: pointer;
 }

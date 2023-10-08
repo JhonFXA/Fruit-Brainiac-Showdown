@@ -7,6 +7,55 @@ body {
     background-size: cover;
     display: flex;
     justify-content: space-around;
+    overflow-y: hidden;
+}
+
+.pos-jogo{
+    display: none;
+    position: absolute;
+}
+
+.vitoria {  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #00000000;
+    color: #ffffff;
+    font-size: 50px;
+    display: auto;
+    transition: background 2s;
+}
+
+.botoes-pos-jogo{
+    opacity: 0;
+    transition: 2s ease-in;
+}
+
+.botoes-pos-jogo button{
+    font-family: 'Amiga Forever', sans-serif;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 2px;
+    display: block;
+    width: 200px;
+    margin-top: 30px;
+    background-image: radial-gradient(rgb(23, 197, 23),rgb(0, 53, 4));
+}
+
+.botoes-pos-jogo button:hover{
+    background-image: radial-gradient(rgb(120, 255, 108),rgb(0, 139, 12));
+}
+.botoes-pos-jogo button:focus{
+    background-image: none;
+    background: white;
+    color: black;
 }
 
 .icones_jogador {
@@ -37,6 +86,7 @@ body {
 .barra-lateral-P1 {
     background-image: linear-gradient(#000, #9c0000);
     box-shadow: #000 5px 0px;
+    
 
 }
 
@@ -105,14 +155,37 @@ body {
     border-color: #fff;
 }
 
+.nome-P1 {
+    position: absolute;
+    background: rgb(163, 0, 0);
+    color: white;
+    padding: 4px;
+    border: solid white 4px;
+    border-radius: 7px;
+    top: 23px;
+    left: 5px;
+    background-image: radial-gradient( #9c0000 20%, #000 80%);
+}
+.nome-P2 {
+    position: absolute;
+    background: rgb(35, 0, 163);
+    color: white;
+    padding: 4px;
+    border: solid white 4px;
+    border-radius: 7px;
+    top: 23px;
+    right: 5px;
+    background-image: radial-gradient(#003e9c, black);
+}
+
 .barra-lateral-P1 .botao {
     background-color: red;
-    background-image: radial-gradient(#9c0000, black);
+    background-image: radial-gradient(#b60909, black);
 }
 
 .barra-lateral-P2 .botao {
-    background-color: blue;
-    background-image: radial-gradient(#003e9c, black);
+    background-color: rgb(1, 132, 255);
+    background-image: radial-gradient(rgb(3, 104, 255), black);
 }
 
 .barra-lateral-P1 .box-habilidades .ativado {
@@ -189,17 +262,18 @@ span {
     border-radius: 8px;
     width: 60px;
     height: 45px;
-    top: 30px;
+    top: 21px;
 }
 
 .jogador-1-grade {
     display: flex;
     border-right: solid black;
+    position: relative;
 }
 
 .jogador-1-grade .box-tempo {
-    background-image: linear-gradient(#000000, #d80707);
-}
+     background-image: linear-gradient(#000000, #d80707);
+}    
 
 .container1 {
     display: flex;
@@ -213,6 +287,7 @@ span {
 .jogador-2-grade {
     display: flex;
     border-left: solid black;
+    position: relative;
 }
 
 .jogador-2-grade .box-tempo {
@@ -349,3 +424,4 @@ span {
     transform: rotatey(180deg);
 
 }
+
