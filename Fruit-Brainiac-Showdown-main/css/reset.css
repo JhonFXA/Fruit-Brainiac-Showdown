@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    text-decoration: none;
+}
+
+img {
+    user-select: none;
+}
+
+button {
+    cursor: pointer;
+}
