@@ -12,7 +12,7 @@ const botaoVoltar = () =>{
     inputP1.value = ''
     inputP2.value = ''
 }
-//Função "botao jogar" serve levar a uma tela onde os jogadores poderão escolher suas siglas e, assim, poder jogar.
+//Função "botao jogar" serve para levar à uma tela onde os jogadores poderão escolher seus nicknames e, assim, poder jogar.
 const botaoJogar = () => {
     usernameBox.classList.remove('invisibilidade')
     inputP1.value = ''
@@ -47,3 +47,16 @@ partida.addEventListener('click',()=>{
         window.location.href = 'partida.html'
     }
 })
+
+//Essa função é executada ao clicar no botão de créditos, adiciona e remove as classes responsáveis por mostrar a caixa de créditos ao jogador
+const botaoCreditos = () => {
+    const fundo = document.querySelector(".fundo-preto")
+    const creditos = document.querySelector(".creditos")
+    if(!fundo.classList.contains("ativado")){
+        fundo.classList.add("ativado")
+        creditos.classList.add("creditos-ativado")
+    } else {
+        fundo.classList.remove("ativado")
+        creditos.classList.remove("creditos-ativado")
+    }
+}

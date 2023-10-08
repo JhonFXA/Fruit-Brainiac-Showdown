@@ -1,5 +1,9 @@
 @import url('https://fonts.cdnfonts.com/css/amiga-forever');
 
+* {
+    list-style: none;
+}
+
 body {
     font-family: 'Amiga Forever', sans-serif;
     background-image: url("../imagens/fundo.jpg");
