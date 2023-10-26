@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Fruit Brainiac Showdown</title>
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/menu.css" />
@@ -11,54 +11,55 @@
     <link rel="shortcut icon" href="./imagens/melancia.png" type="image/x-icon">
   </head>
   <body>
-    <img src="./imagens/logo.png" class="game-logo" height="270px" alt="Fruit Brainiac Showdown">
-    <div class="menu">
-      <button class="botao" onclick="botaoJogar()" id="botao-jogar">JOGAR</button>
-      <button class="botao" onclick="botaoTutorial()">TUTORIAL</button>
-      <button class="botao" onclick="botaoCreditos()">CRÉDITOS</button>
-      <div class="usernames invisibilidade">
-        <button onclick="botaoVoltar()" class="voltar">Voltar</button>
-        <div>
-          <p>JOGADOR 1</p>
-          <input autocomplete="off" placeholder="" id="username-P1" type="text" maxlength="10" oninput="verificarTamanhoUsername()" class="uppercase-input">
-        </div>
-
-        <button class="botao-partida" id="botao-partida">PARTIDA</button>
-
-        <div>
-          <p>JOGADOR 2</p>
-          <input autocomplete="off" id="username-P2" type="text" maxlength="10" oninput="verificarTamanhoUsername()" class="uppercase-input"> 
+    <main>
+      <img src="./imagens/logo.png" class="game-logo" height="270px" alt="Fruit Brainiac Showdown">
+      <div class="menu">
+        <button class="botao" onclick="botaoJogar()" id="botao-jogar">JOGAR</button>
+        <button class="botao" onclick="botaoTutorial()">TUTORIAL</button>
+        <button class="botao" onclick="botaoCreditos()">CRÉDITOS</button>
+        <div class="usernames invisibilidade">
+          <button onclick="botaoVoltar()" class="voltar">Voltar</button>
+          <div>
+            <p>JOGADOR 1</p>
+            <input autocomplete="off" placeholder="" id="username-P1" type="text" maxlength="10" oninput="verificarTamanhoUsername()" class="uppercase-input">
+          </div>
+          <button class="botao-partida" id="botao-partida">PARTIDA</button>
+          <div>
+            <p>JOGADOR 2</p>
+            <input autocomplete="off" id="username-P2" type="text" maxlength="10" oninput="verificarTamanhoUsername()" class="uppercase-input">
+          </div>
         </div>
       </div>
-    </div>
+      <div class="creditos">
+        <div>
+          <button onclick="botaoCreditos()" class="voltar-creditos">
+            <p>+</p>
+          </button>
+        </div>
+        <div>
+          <div>
+            <p>Desenvolvido por:</p>
+            <ul>
+              <li>Igor Seara de Araújo</li>
+              <li>Jonathan Henrique Santos Bispo</li>
+              <li>José Eduardo Duarte dos Santos</li>
+              <li>Marcos Firmino Cruz dos Santos</li>
+            </ul>
+            <p>Sobre o projeto:</p>
+            <p class="texto-sobre">Este jogo da memória foi criado como um projeto para o curso de Programação Funcional da Universidade Federal de Sergipe.
+              Ele combina elementos de diversão e competição, desafiando a memória dos jogadores enquanto exploram os diferentes pares de cartas.
+              Cada um de nós dedicou tempo e esforço para conceber, projetar e desenvolver este jogo para proporcionar uma experiência agradável e divertida.
+            Obrigado por jogarem! :)
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
     <div class="fundo-preto">
     </div>
-    <div class="creditos">
-      <div>
-        <button onclick="botaoCreditos()" class="voltar-creditos">
-          <p>+</p>
-        </button>
-      </div>
-      <div>
-        <div>
-          <p>Desenvolvido por:</p>
-          <ul>
-            <li>Igor Seara de Araújo</li>
-            <li>Jonathan Henrique Santos Bispo</li>
-            <li>José Eduardo Duarte dos Santos</li>
-            <li>Marcos Firmino Cruz dos Santos</li>
-          </ul>
-
-          <p>Sobre o projeto:</p>
-          <p class="texto-sobre">Este jogo da memória foi criado como um projeto para o curso de Programação Funcional da Universidade Federal de Sergipe. 
-            Ele combina elementos de diversão e competição, desafiando a memória dos jogadores enquanto exploram os diferentes pares de cartas. 
-            Cada um de nós dedicou tempo e esforço para conceber, projetar e desenvolver este jogo para proporcionar uma experiência agradável e divertida.
-          Obrigado por jogarem! :)
-          </p>
-        </div>
-      </div>
-    </div>
-    <p class="versao">BETA</p>
+    <footer>
+      <p class="versao">BETA</p>
+    </footer>
     <script src="js/menu.js"></script>
   </body>
 </html>

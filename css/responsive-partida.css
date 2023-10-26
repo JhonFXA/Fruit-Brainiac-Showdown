@@ -1,9 +1,4 @@
 @media (max-width: 700px) {
-
-    .verso {
-        opacity: 0.5;
-    }
-
     .barra-lateral-P1, .barra-lateral-P2 {
         position: absolute;
         flex-direction: row;
