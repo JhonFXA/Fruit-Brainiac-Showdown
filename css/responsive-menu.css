@@ -3,6 +3,10 @@
         height: 150px;
     }
 
+    main {
+        width: 80%;
+    }
+
     .menu {
         flex-direction: column;
         gap: 10px;

@@ -1,9 +1,10 @@
 @media (max-width: 700px) {
+
     .barra-lateral-P1, .barra-lateral-P2 {
         position: absolute;
         flex-direction: row;
         justify-content: space-between;
-        height: 100px;
+        height: 80px;
         width: 100%;
     }
 
@@ -24,48 +25,78 @@
 
     .barra-lateral-P1 {
         display: auto;
+        box-shadow: #000 0px 0px;
     }
 
     .barra-lateral-P2 {
         display: none;
+        box-shadow: #000 0px 0px;
     }
 
     .jogador-1-grade {
+        position: inherit;
         display: flex;
         flex-direction: column;
+        justify-content: start;
         margin-top: 200px;
         border-right: 0;
     }
 
     .jogador-2-grade {
+        position: inherit;
         display: none;
         flex-direction: column;
+        justify-content: start;
         margin-top: 200px;
         border-left: 0;
     }
 
     .box-tempo {
-        position: relative;
-        margin-bottom: 50px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .box-pontos {
+        width: 50px;
+        height: 36px;
     }
 
     .carta {
-        height: 85px;
-        width: 55px;
+        height: 80px;
+        width: 50px;
     }
 
     .box-habilidades {
         flex-direction: row;
         position: absolute;
-        top: 50px;
+        top: 25px;
         width: 100%;
         height: 100px;
         box-shadow: 0 0 0 transparent !important;
+        overflow: hidden;
+
+    }
+
+    .box-habilidades .descricao {
+        display: none;
+    }
+
+    .nome-P1 {
+        position: relative;
+        margin-bottom: 30px;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
     }
 
     .nome-P2 {
-        left: 5px;
-        width: fit-content;
+        position: relative;
+        left: 0;
+        right: 0;
+        margin-bottom: 30px;
+        top: 0;
+        width: 100%;
     }
 
     .mensagemFinal {
