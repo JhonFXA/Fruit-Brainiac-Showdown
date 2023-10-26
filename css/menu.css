@@ -278,11 +278,11 @@ img {
 /* Para navegadores que não suportam scrollbar-color */
 /* Estes valores podem variar entre navegadores, nem todos os navegadores suportam essas propriedades */
 .creditos ::-webkit-scrollbar-track {
-  background-color: #d1a072;
+  background-color: #7c5735;
   /* Cor de fundo da barra de rolagem */
 }
 
 .creditos ::-webkit-scrollbar-thumb {
-  background-color: #7c5735;
+  background-color: #d1a072;
   /* Cor da barra de rolagem */
 }

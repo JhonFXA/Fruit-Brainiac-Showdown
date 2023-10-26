@@ -11,7 +11,6 @@ const cartasViradas = [] //Lista vazia, onde serão armazenadas as cartas escolh
 //Lista de frutas presentes nas cartas do jogo
 const frutas = ["côco","cereja","pêssego","maçã","melancia","banana","limão","morango","abacate","pera","uva","abacaxi"]
 
-
 const vitoria = document.querySelector(".pos-jogo") //Elemento que sobrepõe o jogo ao alguém ganhar.
 const mensagemFinal = document.querySelector('.mensagemFinal') //Elemento de texto que aparece ao fi
 const usernameP1 = localStorage.getItem('usernameP1') //Nome do jogador 1, compartilhado pelo menu.js
@@ -178,6 +177,16 @@ const contagemP1 = (numero,velocidade=1000) => {
 
   //Se o tempo chegar no zero, deverá ocorrer uma verificação para checar se alguma habilidade foi ativada e qual foi.
   if(numero===0){
+    if (window.innerWidth <= 700 && !possuiClasse(botoesP1[1],"ativadoAux")){
+      const gradeP1 = document.querySelector(".jogador-1-grade")
+      const gradeP2 = document.querySelector(".jogador-2-grade")
+      const barraLateralP1 = document.querySelector(".barra-lateral-P1")
+      const barraLateralP2 = document.querySelector(".barra-lateral-P2")
+      gradeP1.style.display = "none"
+      gradeP2.style.display = "flex"
+      barraLateralP1.style.display = "none"
+      barraLateralP2.style.display = "flex"
+    }
     //Caso o tempo acabe e apenas uma carta esteja virada, ela deverá ser escondida novamente.
     if (cartasViradas.length == 1) {
       removerClasse(cartasViradas[0], "virar-carta")
@@ -274,6 +283,16 @@ const contagemP1 = (numero,velocidade=1000) => {
 const contagemP2 = (numero,velocidade=1000) => {
   const contador = document.getElementById("tempoP2")
   if (numero===0){
+    if (window.innerWidth <= 700 && !possuiClasse(botoesP2[1],"ativadoAux")){
+      const gradeP1 = document.querySelector(".jogador-1-grade")
+      const gradeP2 = document.querySelector(".jogador-2-grade")
+      const barraLateralP1 = document.querySelector(".barra-lateral-P1")
+      const barraLateralP2 = document.querySelector(".barra-lateral-P2")
+      gradeP1.style.display = "flex"
+      gradeP2.style.display = "none"
+      barraLateralP1.style.display = "flex"
+      barraLateralP2.style.display = "none"
+    }
   //Caso o tempo acabe e apenas uma carta esteja virada, ela deverá ser escondida novamente.
     if (cartasViradas.length == 1) {
       removerClasse(cartasViradas[0], "virar-carta")

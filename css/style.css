@@ -90,8 +90,6 @@ body {
 .barra-lateral-P1 {
     background-image: linear-gradient(#000, #9c0000);
     box-shadow: #000 5px 0px;
-    
-
 }
 
 .barra-lateral-P2 {
@@ -107,6 +105,11 @@ body {
     flex-direction: column;
     align-items: center;
 
+}
+
+.pontuacao {
+    display: flex;
+    flex-direction: column;
 }
 
 .barra-lateral-P1 .box-pontos {

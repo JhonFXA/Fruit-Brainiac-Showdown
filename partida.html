@@ -7,10 +7,10 @@
     <title>Fruit Brainiac Showdown</title>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/responsive-partida.css" />
     <link rel="shortcut icon" href="./imagens/melancia.png" type="image/x-icon">
   </head>
   <body>
-    <!-- ======================================================= JOGADOR 1 ================================================================= -->
     <div class="pos-jogo">
       <p class="mensagemFinal"></p>
       <div class="botoes-pos-jogo">
@@ -18,10 +18,13 @@
         <button onclick="voltarMenu()">MENU</button>
       </div>
     </div>
+    <!-- ======================================================= JOGADOR 1 ================================================================= -->
     <div class="barra-lateral-P1">
       <img src="imagens/Jogador1.png" class="icones_jogador" />
-      <p class="pontosTxt">Pontos</p>
-      <div class="box-pontos" id="pontosP1">0</div>
+      <div class="pontuacao">
+        <p class="pontosTxt">Pontos</p>
+        <div class="box-pontos" id="pontosP1">0</div>
+      </div>
       <ul class="box-habilidades">
         <li>
           <button class="botao" onclick="acelerarTempoInimigoP1()">
@@ -65,7 +68,6 @@
     <div class="jogador-1-grade grades">
       
       <div class="nome-P1" id="nome-P1">P1</div>
-
       <div class="box-tempo" id="tempoP1">0</div>
       <div class="container1"></div>
     </div>
@@ -81,8 +83,10 @@
 
     <div class="barra-lateral-P2">
       <img src="imagens/Jogador2.png" class="icones_jogador" />
-      <p class="pontosTxt">Pontos</p>
-      <div class="box-pontos" id="pontosP2">0</div>
+      <div class="pontuacao">
+        <p class="pontosTxt">Pontos</p>
+        <div class="box-pontos" id="pontosP2">0</div>
+      </div>
       <ul class="box-habilidades">
         <li>
           <button class="botao" onclick="acelerarTempoInimigoP2()">

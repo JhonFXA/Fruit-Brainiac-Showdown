@@ -1,0 +1,32 @@
+@media (max-width: 700px) {
+    .game-logo {
+        height: 200px;
+    }
+
+    .menu {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .botao {
+        margin-bottom: 20px;
+    }
+
+    .creditos {
+        width: 80%;
+    }
+
+    .usernames {
+        flex-direction: column;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+
+    .botao-partida, .botao-partida-liberado {
+        position: relative;
+    }
+
+}
