@@ -551,7 +551,7 @@ const embaralharCartasOponenteP1 = () => {
   }
 }
   //Botão para que o jogador 2 use a habilidade de "repetir rodada", fazendo com que sua vez se repita.
-   const repetirRodadaP2 = () => {
+const repetirRodadaP2 = () => {
   if(pontosP2.innerHTML>2 && !containerDois.classList.contains('elemento-piscante')){
     pontosP2.innerHTML -= 3
     removerClassePraCada(botoesP2,'botao-piscante-P2')
@@ -590,7 +590,7 @@ const embaralharOponenteP2 = () => {
   }
 }
 //Dá função ao botão "Revanche" quando um dos jogadores ganham a partida, permitindo que reiniciem a partida.
-revanche = () => {
+const revanche = () => {
  window.location.reload()
 }
 

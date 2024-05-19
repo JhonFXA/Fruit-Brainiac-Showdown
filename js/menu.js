@@ -63,5 +63,5 @@ const botaoCreditos = () => {
 
 //Essa função é responsável por redirecionar o jogador ao vídeo de tutorial que está postado no Youtube.
 const botaoTutorial = () => {
-    window.open("https://www.youtube.com/watch?v=m1NtYoHpq6U","_blank")
+
 }
