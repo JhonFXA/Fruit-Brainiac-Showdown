@@ -3,8 +3,6 @@
 
 Bem-vindo ao **Fruit Brainiac Showdown**! Este é um emocionante jogo onde você pode competir contra um amigo em uma partida de memória repleta de reviravoltas emocionantes. Encontre todos os pares de cartas antes do seu oponente para se tornar o vencedor!
 
-TUTORIAL: https://www.youtube.com/watch?v=m1NtYoHpq6U
-<br>
 JOGAR: https://fruit-brainiac-showdown.netlify.app/
 
 ![image](https://github.com/JhonFXA/Fruit-Brainiac-Showdown/assets/101012380/74d99342-4225-4f3a-a551-61ec6271a0ea)
